@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/Jorgen/Projects/E-Commerce-Shop/ishop/db.sqlite3" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2412"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,10:mainauth_group"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">
+
+select * from auth_user;
+select * from auth_user_groups;
+select * from sqlite_schema;
+select * from django_session;
+
+
+drop table store_cart_item;
+drop table store_order_details;
+drop table store_order;
+drop table store_customer;
+drop table store_cart;
+drop table store_shipping_address;
+drop table store_payment;
+drop table store_product;
+drop table store_inventory;
+drop table store_category;
+
+
+create table &quot;store_customer&quot; (&quot;id&quot; integer not null primary key autoincrement, first_name varchar(100) not null, last_name varchar(100) not null, phone varchar(100), email varchar(100), user_id integer references &quot;auth_user&quot;(id), cart_id integer references &quot;store_cart&quot;(id));
+create table &quot;store_cart&quot; (&quot;id&quot; integer not null primary key autoincrement, session_id varchar(100) not null);
+create table &quot;store_shipping_address&quot; (&quot;id&quot; integer not null primary key autoincrement, street varchar(100) not null, city varchar(100) not null, zipcode integer not null, country varchar(100));
+create table &quot;store_payment&quot; (&quot;id&quot; integer not null primary key autoincrement, amount integer not null default 0, status integer not null default 0);
+create table &quot;store_order&quot; (&quot;id&quot; integer not null primary key autoincrement, amount integer not null default 0, shipping_address_id integer not null references &quot;store_shipping_address&quot;(id), customer_id integer not null references &quot;store_customer&quot;(id), payment_id integer not null references &quot;store_payment&quot;(id));
+create table &quot;store_category&quot; (&quot;id&quot; integer not null primary key autoincrement, ref_id integer references &quot;store_category&quot;(id), name varchar(100) not null);
+create table &quot;store_inventory&quot; (&quot;id&quot; integer not null primary key autoincrement, quantity integer not null default 0);
+create table &quot;store_product&quot; (&quot;id&quot; integer not null primary key autoincrement, name varchar(100) not null, price integer not null, description varchar(100), image1_url varchar(255), image2_url varchar(255), image3_url varchar(255), image4_url varchar(255), category_id integer not null references &quot;store_category&quot;(id), inventory_id integer not null references &quot;store_inventory&quot;(id));
+create table &quot;store_cart_item&quot; (&quot;id&quot; integer not null primary key autoincrement, quantity integer not null default 0, product_id integer not null references &quot;store_product&quot;(id), cart_id integer not null references &quot;store_cart&quot;(id));
+create table &quot;store_order_details&quot; (&quot;id&quot; integer not null primary key autoincrement, quantity integer not null default 0, product_id integer not null references &quot;store_product&quot;(id), order_id integer not null references &quot;store_order&quot;(id));
+
+
+select * from store_cart;
+select * from store_customer;
+select * from store_shipping_address;
+select * from store_payment;
+select * from store_order;
+select * from store_category;
+select * from store_inventory;
+select * from store_product;
+select * from store_cart_item;
+select * from store_order_details;
+
+
+insert into store_cart (&quot;session_id&quot;) values (&quot;a67nj44ci8hy7o6r70gwybijwkyzevqb&quot;);
+insert into store_customer (&quot;first_name&quot;,&quot;last_name&quot;,&quot;phone&quot;,&quot;email&quot;,user_id,cart_id) values ('john', 'doe','', 'john.doe@email.com', null, 1);
+insert into store_shipping_address (&quot;street&quot;, &quot;city&quot;, &quot;zipcode&quot;, &quot;country&quot;) values ('Kungsgatan 1', 'Stockholm', 11135, 'Sweden');
+insert into store_payment (&quot;amount&quot;) values (123);
+insert into store_order (&quot;amount&quot;, &quot;shipping_address_id&quot;, &quot;customer_id&quot;, &quot;payment_id&quot;) values (123, 1, 1, 1);
+insert into store_category (&quot;ref_id&quot;, &quot;name&quot;) values (null, 'Computers');
+insert into store_category (&quot;ref_id&quot;, &quot;name&quot;) values (1, 'Laptop');
+insert into store_category (&quot;ref_id&quot;, &quot;name&quot;) values (1, 'Desktop');
+insert into store_category (&quot;ref_id&quot;, &quot;name&quot;) values (null, 'Network');
+insert into store_category (&quot;ref_id&quot;, &quot;name&quot;) values (4, 'Routers');
+insert into store_inventory (&quot;quantity&quot;) values (10);
+insert into store_inventory (&quot;quantity&quot;) values (20);
+insert into store_product (&quot;name&quot;, &quot;price&quot;, &quot;description&quot;, &quot;image1_url&quot;, &quot;image2_url&quot;, &quot;image3_url&quot;, &quot;image4_url&quot;, &quot;category_id&quot;, &quot;inventory_id&quot;) values ('Lenovo', 12345, 'A Lenovo Laptop', '/media/lenovo1.jpg', '/media/lenovo2.jpg', '/media/lenovo3.jpg', '/media/lenovo4.jpg', 2, 1);
+insert into store_product (&quot;name&quot;, &quot;price&quot;, &quot;description&quot;, &quot;image1_url&quot;, &quot;image2_url&quot;, &quot;image3_url&quot;, &quot;image4_url&quot;, &quot;category_id&quot;, &quot;inventory_id&quot;) values ('Acer', 12346, 'An Acer Laptop', '/media/acer1.jpg', '/media/acer2.jpg', '/media/acer3.jpg', '/media/acer4.jpg', 2, 2);
+insert into store_cart_item (&quot;quantity&quot;, &quot;product_id&quot;, &quot;cart_id&quot;) values (1, 1, 1);
+insert into store_order_details (&quot;quantity&quot;, &quot;product_id&quot;, &quot;order_id&quot;) values (3, 2, 1);
+
+
+--check product list
+select * from store_product p
+inner join store_category c
+on p.category_id = c.id
+inner join store_inventory i
+on p.inventory_id = i.id
+where c.ref_id = 1
+
+
+--check order
+select o.amount, p.name, p.price, p.description, od.quantity, 
+od.order_id, c.first_name, c.last_name, sa.street, sa.city, sa.zipcode, sa.country
+from store_order o
+inner join store_order_details od on
+o.id = od.order_id
+inner join store_product p on
+od.product_id = p.id
+inner join store_customer c on
+c.id = o.customer_id
+inner join store_shipping_address sa on 
+sa.id = o.shipping_address_id;
+
+
+--check cart content
+select * from store_cart c
+inner join store_cart_item ci
+on c.id = ci.cart_id
+inner join store_product p
+on p.id = ci.product_id
+
+
+
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
