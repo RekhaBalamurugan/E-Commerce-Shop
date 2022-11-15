@@ -1,5 +1,5 @@
 from django.shortcuts import render
-#from store.models import ProductDetails
+from store.models import Product
 from django.views.generic import DetailView
 from view_breadcrumbs import DetailBreadcrumbMixin
 
@@ -17,7 +17,7 @@ def user_login(request):
 
 
 def products(request):
-    products = ProductDetails.objects.all()
+    products = Product.objects.all()
     my_dic = {'products': products}
     return render(request, "store/product.html", context=my_dic)
 
@@ -25,9 +25,7 @@ def products(request):
 def cart(request):
     return render(request, "store/cart.html")
 
-'''
 def productdetails(request, id):
-    itemdetail = ProductDetails.objects.filter(id=id).first
+    itemdetail = Product.objects.filter(id=id).first
     dict = {'itemdetail': itemdetail}
     return render(request, "store/productdetails.html", context=dict)
-'''
