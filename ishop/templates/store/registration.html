@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 {% extends "store/base.html" %}
-
 {% block body_block %}
-
 <div class="jumbotron">
     {% if registered %}
     <h1>Thank you for Registration</h1>
@@ -14,10 +12,10 @@
         {% csrf_token %}
         {{ user_form.as_p }}
         {{ profile_form.as_p }}
-        <input type="submit" value="Register">
+        <input type="submit" style="background-color:green;color:white;width:80px;
+height:40px;" value="Register">
     </form>
     </div>
     {% endif %}
 </div>
-
 {% endblock %}
