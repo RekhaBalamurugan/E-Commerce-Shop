@@ -1,0 +1,52 @@
+{% extends "store/base.html" %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<title> Products </title>
+{% block body_block %}
+<h3> Product Page </h3>
+<div class="row">
+    {% for item in products %}
+    <div class="col-lg-4 bg-image hover-zoom">
+        <div class="product-thumbnail">
+            <div class="product-thumbnail-hover">
+                <img class="thumbnail" src="{{ item.image1_url.url }}">
+                <div class="box-element product">
+                    <h6> {{item.name}} </h6>
+                    <hr>
+                    <button class="btn btn-outline-secondary add-btn"> Add to Cart </button>
+                    <a class="btn btn-outline-success" href="{% url 'store:productdetails' item.id %}"> View </a>
+                    <h6 style="display:inline-block; float: right; padding-top:8px"> {{item.price}} SEK</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <!--{% comment %} <div class="col-lg-3">
+        <img class="thumbnail" src="{% static 'images/hp.png' %}">
+        <div class="box-element product">
+            <h6> Product </h6>
+            <hr>
+            <button class="btn btn-outline-secondary add-btn"> Add to Cart </button>
+            <a class="btn btn-outline-success" href="#"> View </a>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <img class="thumbnail" src="{% static 'images/placeholder.png' %}">
+        <div class="box-element product">
+            <h6> Product </h6>
+            <hr>
+            <button class="btn btn-outline-secondary add-btn"> Add to Cart </button>
+            <a class="btn btn-outline-success" href="#"> View </a>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <img class="thumbnail" src="{% static 'images/placeholder.png' %}">
+        <div class="box-element product">
+            <h6> Product </h6>
+            <hr>
+            <button class="btn btn-outline-secondary add-btn"> Add to Cart </button>
+            <a class="btn btn-outline-success" href="#"> View </a>
+        </div>
+    </div> {% endcomment %}-->
+</div>
+{% endblock %}

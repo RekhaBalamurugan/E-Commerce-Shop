@@ -1,17 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 class UserProfileInfo(models.Model):
     
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     first_name = models.Field(blank=True)
     last_name = models.Field(blank=True)
 
     def __str__(self):
         return self.user.username
-        
 class Cart(models.Model):
     session_id = models.CharField(max_length=100)
 

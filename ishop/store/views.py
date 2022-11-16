@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from store.models import Product
 from store.forms import UserForm, UserProfileInfo
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
@@ -78,3 +79,17 @@ def register(request):
                    {'user_form':user_form,
                    'profile_form':profile_form,
                    'registered':registered})  
+
+def products(request):
+    products = Product.objects.all()
+    my_dic = {'products': products}
+    return render(request, "store/product.html", context=my_dic)
+
+
+def cart(request):
+    return render(request, "store/cart.html")
+
+def productdetails(request, id):
+    itemdetail = Product.objects.filter(id=id).first
+    dict = {'itemdetail': itemdetail}
+    return render(request, "store/productdetails.html", context=dict)
