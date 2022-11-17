@@ -49,11 +49,11 @@
                     {% endif %}      
 
                     <li class="nav-item">
-                        <a href="{% url 'store:cart' %}">
+                        <a href="{% url 'store:shoppingcart' %}">
                             <img id="cart-icon" src="{% static 'images/cart3.png' %}">
                         </a>
                         <span id="cart-price"> 14 980 kr <span>
-                                <span id="cart-total" style="position:absoulte;top:-5px"> 0 <span>
+                        <span id="cart-total" style="position:absoulte;top:-5px">{{ item_count }}<span>
                     </li>
                 </ul>
             </div>

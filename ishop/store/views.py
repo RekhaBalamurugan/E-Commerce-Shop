@@ -5,16 +5,31 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from store.models import Cart
 
+
+def get_or_create_session_key(request):
+    if not request.session.session_key:
+        request.session.save()
+    return request.session.session_key
 
 # Create your views here.
 
 def index(request):
-    return render(request, 'store/index.html')
 
-#def user_login(request):
-    #return render(request, 'store/login.html')
+    cart = Cart()
 
+    if request.session.session_key:
+        cart = Cart.get_or_create_cart(request.session.session_key)
+
+    return render(request, 'store/index.html', {'item_count':cart.get_items().count})
+
+def shoppingcart(request):
+
+    session_key = get_or_create_session_key(request)
+    cart = Cart.get_or_create_cart(session_key)
+
+    return render(request, 'store/shoppingcart.html', {'cart_items':cart.get_items(), 'item_count':cart.get_items().count})
 
 @login_required
 def special(request):
