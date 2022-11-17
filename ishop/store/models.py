@@ -12,12 +12,18 @@ class UserProfileInfo(models.Model):
 
     def __str__(self):
         return self.user.username
+
 class Cart(models.Model):
     session_id = models.CharField(max_length=100)
 
     class Meta:
         managed = True
 
+    def get_or_create_cart(session_key):
+        return Cart.objects.get_or_create(session_id=session_key)[0]
+
+    def get_items(self):
+        return CartItem.objects.filter(cart=self)
 
 class Category(models.Model):
     ref = models.ForeignKey("self", models.DO_NOTHING, blank=True, null=True)
@@ -57,6 +63,8 @@ class CartItem(models.Model):
     class Meta:
         managed = True
 
+    def line_total(self):
+        return self.quantity * self.product.price
 
 class Customer(models.Model):
     first_name = models.CharField(max_length=100)

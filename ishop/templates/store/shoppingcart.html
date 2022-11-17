@@ -1,0 +1,24 @@
+{% extends "store/base.html" %}
+
+{% block body_block %}
+<h1>Cart Page</h1>
+
+<br />
+<table class="table">
+    <tr>
+        <th>Product</th>
+        <th>Unit price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+    </tr>
+    {% for item in cart_items %}
+        <tr>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.product.price }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.line_total }}</td>
+        </tr>
+    {% endfor %}
+</table>
+<br />
+{% endblock %}
