@@ -29,7 +29,15 @@
         <br>
         <span style="font-weight:italic;"><i> Incl. VAT Delivery usually within 24h</i> </span>
         <br><br>
-        <a class="btn btn-outline-success"> Add to Cart </a>
+        <form action="{% url 'store:add_item_to_cart' %}" method="post">
+            {% csrf_token %}
+            <div onclick="productCalculate('{{itemdetail.id}}','-')" class="btn btn-outline-secondary">&minus;</div>
+            <div style="pointer-events: none" id="result_div{{ itemdetail.id }}" class="btn btn-outline-secondary">1</div>
+            <div onclick="productCalculate('{{itemdetail.id}}','+')" class="btn btn-outline-secondary">&plus;</div>
+            <input type="hidden" name="request_path" value="{{request.path}}">
+            <input type="hidden" name="item_id" value="{{itemdetail.id}}">
+            <button id="add_btn{{itemdetail.id}}" type="submit" name='add_btn' value='1' class="btn btn-outline-secondary add-btn"> Add to Cart </button>
+        </form>
     </div>
 </div>
 {% endblock %}

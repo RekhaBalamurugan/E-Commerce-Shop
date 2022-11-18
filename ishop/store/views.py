@@ -13,28 +13,42 @@ def get_or_create_session_key(request):
         request.session.save()
     return request.session.session_key
 
-# Create your views here.
-
-
-def index(request):
-
+def getCart(request):
     cart = Cart()
-
     if request.session.session_key:
         cart = Cart.get_or_create_cart(request.session.session_key)
+    return cart
+
+# Create your views here.
+
+def index(request):
 
     categorylist=Category.objects.filter(ref__isnull=True)
     subcategorylist = Category.objects.filter(ref__id=categorylist)
 
-    return render(request, 'store/index.html', {'item_count': cart.get_items().count, 'categorylist': categorylist,'subcategorylist':subcategorylist})
-
+    cart = getCart(request)
+    return render(request, 'store/index.html', {'item_count': cart.get_total_qty(), 'total_amount':cart.get_total_amount(), 'categorylist': categorylist,'subcategorylist':subcategorylist})
 
 def shoppingcart(request):
 
-    session_key = get_or_create_session_key(request)
-    cart = Cart.get_or_create_cart(session_key)
+    cart = getCart(request)
+    return render(request, 'store/shoppingcart.html', {'cart_items':cart.get_items(), 'item_count':cart.get_total_qty(), 'total_amount':cart.get_total_amount()})
 
-    return render(request, 'store/shoppingcart.html', {'cart_items': cart.get_items(), 'item_count': cart.get_items().count})
+def add_item_to_cart(request):
+
+    get_or_create_session_key(request)
+    cart = getCart(request)
+
+    if request.method == 'POST' and 'request_path' in request.POST:
+
+        item_id = int(request.POST.get('item_id'))
+        qty = int(request.POST.get('add_btn'))
+
+        cart.add_item(item_id, qty)
+
+        return HttpResponseRedirect(request.POST.get('request_path'))
+
+    return HttpResponseRedirect(reverse('index'))
 
 
 @login_required
@@ -49,6 +63,8 @@ def user_logout(request):
 
 
 def register(request):
+
+    cart = getCart(request)
     registered = False
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
@@ -64,7 +80,10 @@ def register(request):
 
     return render(request, 'store/registration.html',
                   {'user_form': user_form,
-                   'registered': registered})
+                   'registered': registered,
+                   'cart_items':cart.get_items(),
+                   'item_count':cart.get_total_qty(),
+                   'total_amount':cart.get_total_amount()})
 
 
 def user_login(request):
@@ -87,20 +106,16 @@ def user_login(request):
         return render(request, 'store/login.html', {})
 
 def products(request):
+
+    cart = getCart(request)
     products = Product.objects.all()
-    my_dic = {'products': products}
+    my_dic = {'products': products, 'item_count':cart.get_total_qty(), 'total_amount':cart.get_total_amount()}
     return render(request, "store/product.html", context=my_dic)
 
 
-def cart(request):
-    cartitems = CartItem.objects.all()
-    cart_dic = {'cartitems': cartitems}
-    print(cart_dic)
-    return render(request, "store/shoppingcart.html", context=cart_dic)
-
-
 def productdetails(request, id):
+
+    cart = getCart(request)
     itemdetail = Product.objects.filter(id=id).first
-    dict = {'itemdetail': itemdetail}
-    print(dict)
+    dict = {'itemdetail': itemdetail, 'item_count':cart.get_total_qty(), 'total_amount':cart.get_total_amount()}
     return render(request, "store/productdetails.html", context=dict)
