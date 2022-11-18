@@ -24,18 +24,37 @@ dots.forEach((dot, idx) => {
 });
 
 /* Navbar Dropdown */
-   
-
-    $('a.dropdown-toggle').click(function () {
-        if (!$(this).next().hasClass('show')) {
-            $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
-        }
-        var $subMenu = $(this).next(".dropdown-menu");
-        $subMenu.toggleClass('show');
+$('a.dropdown-toggle').click(function () {
+    if (!$(this).next().hasClass('show')) {
+        $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+    }
+    var $subMenu = $(this).next(".dropdown-menu");
+    $subMenu.toggleClass('show');
 
 
-        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
-            $('.dropdown-submenu .show').removeClass("show");
-        });   
+    $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
+        $('.dropdown-submenu .show').removeClass("show");
     });
- 
+});
+
+
+function productCalculate(id, operator){
+
+    add_btn = document.getElementById('add_btn' + id);
+    result_div = document.getElementById('result_div' + id);
+
+    value = Number(add_btn.getAttribute('value'));
+    new_value = 1;
+
+    if (operator == "+"){
+        new_value =  value + 1;
+    }
+
+    if (operator == "-"){
+        new_value = value > 2 ? value - 1 : 1;
+    }
+
+    add_btn.setAttribute('value', new_value);
+    result_div.textContent = new_value;
+
+}

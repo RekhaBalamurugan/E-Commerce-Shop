@@ -15,6 +15,33 @@ class Cart(models.Model):
     def get_items(self):
         return CartItem.objects.filter(cart=self)
 
+    def add_item(self, item_id, qty):
+
+        item = CartItem.objects.filter(cart=self, product_id=item_id)
+
+        if item.exists():
+            item = item[0]
+            item.quantity += qty
+        else:
+            item = CartItem()
+            item.cart = self
+            item.quantity = qty
+            item.product = Product(id = item_id)
+
+        item.save()
+
+    def get_total_qty(self):
+        item_count = 0
+        for item in self.get_items():
+            item_count += item.quantity
+        return item_count
+
+    def get_total_amount(self):
+        total_amount = 0
+        for item in self.get_items():
+            total_amount += item.line_total()
+        return total_amount
+
 class Category(models.Model):
     ref = models.ForeignKey("self", models.DO_NOTHING, blank=True, null=True)
     name = models.CharField(max_length=100)
