@@ -11,7 +11,7 @@ h6 {
     color: hsl(0, 0%, 30%);
 }
 
-.box-element {
+.grid-design {
     background-color: #fff;
     border-radius: 4px;
     padding: 10px;
@@ -119,7 +119,7 @@ h6 {
     background-color: transparent;
 }
 
-
+/*  Breadcrumbs */
 .breadcrumb {
     list-style: none;
 }
@@ -175,7 +175,7 @@ h6 {
 .display-area {
     width: 320px;
     height: 320px;
-    /*   border: 1px solid black; */
+    /*border: 1px solid black; */
     overflow-x: hidden;
     margin: auto;
 }
@@ -215,4 +215,77 @@ h6 {
     padding-top: 10px;
     margin-top: 10px;
     font-size: 20px;
+}
+
+/*Footer Styles */
+
+.footercontainer {
+    background-color: #89cff0;
+}
+
+
+.row-image {
+    width: 80px;
+    height: 80px;
+}
+
+.footertag {
+    font-style: normal;
+    height: 20px;
+    bottom: 0%;
+    width: 100%;
+    text-align: center;
+    display: block;
+    position: relative;
+    font-size: 12px;
+    padding-bottom: 5px;
+}
+
+
+/*Navbar Styles*/
+
+
+.dropdown-menu {
+    position: absolute;
+    display: none;
+    margin-top: 0;
+    top: 100%;
+    left: 0;
+    background-color: #caf0f8; 
+
+}
+.dropdown-toggle ::after {
+    border-top: 0;
+}
+
+.dropdown-submenu a::after {
+    transform: rotate(-90deg);
+
+    right: 6px;
+    top: .8em;
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-left: .1rem;
+    margin-right: .1rem;
+    display: none;
+    background-color: #caf0f8; 
+}
+
+.dropdown-item {
+    display: block;
+}
+
+.show {
+    display: block;
+}
+
+.dropdown-menu.show {
+    display: block;
 }

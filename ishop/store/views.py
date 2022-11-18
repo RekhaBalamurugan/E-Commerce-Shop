@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from store.models import Product
-from store.forms import UserForm, UserProfileInfo
+from store.models import Product, CartItem, Category
+from store.forms import UserForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
@@ -15,6 +15,7 @@ def get_or_create_session_key(request):
 
 # Create your views here.
 
+
 def index(request):
 
     cart = Cart()
@@ -22,14 +23,19 @@ def index(request):
     if request.session.session_key:
         cart = Cart.get_or_create_cart(request.session.session_key)
 
-    return render(request, 'store/index.html', {'item_count':cart.get_items().count})
+    categorylist=Category.objects.filter(ref__isnull=True)
+    subcategorylist = Category.objects.filter(ref__id=categorylist)
+
+    return render(request, 'store/index.html', {'item_count': cart.get_items().count, 'categorylist': categorylist,'subcategorylist':subcategorylist})
+
 
 def shoppingcart(request):
 
     session_key = get_or_create_session_key(request)
     cart = Cart.get_or_create_cart(session_key)
 
-    return render(request, 'store/shoppingcart.html', {'cart_items':cart.get_items(), 'item_count':cart.get_items().count})
+    return render(request, 'store/shoppingcart.html', {'cart_items': cart.get_items(), 'item_count': cart.get_items().count})
+
 
 @login_required
 def special(request):
@@ -46,54 +52,39 @@ def register(request):
     registered = False
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
-        profile_form = UserProfileInfo(data=request.POST)
-        if user_form.is_valid() and profile_form.is_valid():
+        if user_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
             user.save()
-            profile = profile_form.save(commit=False)
-            profile.user = user
             registered = True
         else:
-            print(user_form.errors, profile_form.errors)
+            print(user_form.errors)
     else:
         user_form = UserForm()
-        profile_form = UserProfileInfo()
 
     return render(request, 'store/registration.html',
                   {'user_form': user_form,
-                   'profile_form': profile_form,
                    'registered': registered})
 
 
 def user_login(request):
-    return render(request, 'store/login.html')
-
-def register(request):
-    registered= False
-
-    if request.method =='POST':
-        user_form = UserForm(data=request.POST)
-        profile_form = UserProfileInfo(data=request.POST)
-
-        if user_form.is_valid() and profile_form.is_valid():
-
-            user = user_form.save()
-            user.set_password(user.password)
-            profile = profile_form.save(commit=False)
-            profile.user = user
-            registered = True
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        print(user)
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                return HttpResponse('Account not active')
         else:
-            print(user_form.errors,profile_form.errors)    
-
+            print("someone tried to log in and failed!")
+            print("username: {} and password {}".format(username, password))
+            return HttpResponse('invalid login details')
     else:
-        user_form = UserForm()
-        profile_form = UserProfileInfo()  
-
-    return render(request,'store/registration.html',
-                   {'user_form':user_form,
-                   'profile_form':profile_form,
-                   'registered':registered})  
+        return render(request, 'store/login.html', {})
 
 def products(request):
     products = Product.objects.all()
@@ -102,9 +93,14 @@ def products(request):
 
 
 def cart(request):
-    return render(request, "store/cart.html")
+    cartitems = CartItem.objects.all()
+    cart_dic = {'cartitems': cartitems}
+    print(cart_dic)
+    return render(request, "store/shoppingcart.html", context=cart_dic)
+
 
 def productdetails(request, id):
     itemdetail = Product.objects.filter(id=id).first
     dict = {'itemdetail': itemdetail}
+    print(dict)
     return render(request, "store/productdetails.html", context=dict)

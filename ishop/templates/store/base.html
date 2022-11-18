@@ -10,13 +10,19 @@
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!--  <script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script> -->
 
 </head>
 
 <body>
     <nav id="navbar" class="navbar navbar-expand-lg navbar-custom">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'index' %}">LOGO</a>
+            <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'images/ishop.png' %}"
+                    style="width:150px;height:80px"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon bg-light"></span>
@@ -25,35 +31,57 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link">
-                        {% if user.is_authenticated %}
-                         welcome {{user.username}}
-                         {% endif %} 
+                            {% if user.is_authenticated %}
+                            welcome {{user.username}}
+                            {% endif %}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
                     </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Collections
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            {% for category in categorylist %}
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="{{ category.get_absolute_url }}">
+                                    {{ category.name }}</a>
+                                <ul class="dropdown-menu">
+                                    {% for subcategory in subcategorylist %}
+                                    <li><a class="dropdown-item"
+                                            href="{{ subcategory.get_absolute_url }}">{{subcategory.name}}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                          
+                            {% endfor %}
+                        </ul>
+                    </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'store:products' %}">products</a>
+                        <a class="nav-link" href="{% url 'store:products' %}">Products</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contact</a>
                     </li>
-                    
+
                     {% if user.is_authenticated %}
                     <li><a class="nav-link" href="{% url 'logout' %}">logout</a></li>
                     {% else %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'store:register' %}">Register</a></li>
                     <li><a class="nav-link" href="{% url 'store:user_login' %}">login</a></li>
-                
-                    {% endif %}      
+                    {% endif %}
 
                     <li class="nav-item">
                         <a href="{% url 'store:shoppingcart' %}">
                             <img id="cart-icon" src="{% static 'images/cart3.png' %}">
                         </a>
                         <span id="cart-price"> 14 980 kr <span>
-                        <span id="cart-total" style="position:absoulte;top:-5px">{{ item_count }}<span>
+                                <span id="cart-total" style="position:absoulte;top:-5px">{{ item_count }}<span>
                     </li>
                 </ul>
             </div>
@@ -74,12 +102,70 @@
         {% block body_block %}
         {% endblock %}
     </div>
-    <footer>
+    <br><br><br> <br><br><br> <br><br><br>
+    <br><br><br>
 
+
+    <div class="footercontainer">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-4">
+                    <h5>Opening hours:</h5>
+                    <h6><b>Mon- Fri:</b> 10.00-17.00</h6>
+                    <h6><b>Sat- Sun:</b> Closed</h6>
+                </div>
+                <div class="col col-lg-4">
+                    <h5><img id="cart-icon" src="{% static 'images/location.png' %}">Address:</h5>
+                    <h6>Galärvarvsvägen 14, <br> 115 21 Stockholm <br> Sweden</h6> <br>
+                    <h6>8712 W Linebaugh Ave <br> Citrus Park, Florida <br> USA</h6> <br>
+                </div>
+                <div class="col col-lg-4">
+                    <h5>Reach us:</h5>
+                    <h6><img id="cart-icon" src="{% static 'images/mail.png' %}">Email us: customercare@ishop.se</h6>
+                    <br>
+                    <h6><img id="cart-icon" src="{% static 'images/call.png' %}">Call us: 0794437354</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-light text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Social media -->
+            <section class="mb-2">
+                <!-- Facebook -->
+                <a class="btn text-white btn-floating" style="background-color: #3b5998;"
+                    href="https://www.facebook.com/" role="button"><i class="fab fa-facebook-f fa-1x"
+                        style="height:5px;width:8px;"></i></a>
+
+
+                <!-- Instagram -->
+                <a class="btn text-white btn-floating" style="background-color: #ac2bac;"
+                    href="https://www.instagram.com" role="button"><i class="fab fa-instagram fa-1x"
+                        style="height:5px;width:8px;"></i></a>
+
+                <!-- Youtube-->
+                <a class="btn text-white btn-floating" style="background-color: red;" href="https://www.youtube.com/"
+                    role="button"><i class="fab fa-youtube fa-1x" style="height:5px;width:8px;"></i></a>
+
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center py-0.5" style="background-color:grey;height:20px ">
+            <p class="footertag"><em> © 2022 Copyright: ishop</em></p>
+
+        </div>
+        <!-- Copyright -->
     </footer>
     {% block scripts %}
+
     <script src="{% static 'javascript/basic.js' %}"></script>
+
     {% endblock %}
+
 </body>
 
 </html>

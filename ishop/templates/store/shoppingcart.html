@@ -1,24 +1,66 @@
 {% extends "store/base.html" %}
-
+{% load static %}
+<title>IndexPage</title>
 {% block body_block %}
-<h1>Cart Page</h1>
+<h4>Place your order </h4>
 
-<br />
-<table class="table">
-    <tr>
-        <th>Product</th>
-        <th>Unit price</th>
-        <th>Quantity</th>
-        <th>Total</th>
-    </tr>
-    {% for item in cart_items %}
-        <tr>
-            <td>{{ item.product.name }}</td>
-            <td>{{ item.product.price }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>{{ item.line_total }}</td>
-        </tr>
-    {% endfor %}
-</table>
-<br />
+<div class='row'>
+    <div class='col-lg-8'>
+        <div class="grid-design">
+            <div class="cart-row">
+                <div style="flex:2"></div>
+                <div style="flex:2"><b>Item</b></div>
+                <div style="flex:1"><b>Unit Price</b></div>
+                <div style="flex:1"><b>Quantity</b></div>
+                <div style="flex:1"><b>Total</b></div>
+            </div>
+            {% for item in cart_items %}
+
+                <div class="cart-row shadow-lg p-1 bg-white rounded">
+                    <div style="flex:2"><img class="row-image" src="{{ item.product.image1_url.url }}"></div>
+                    <div style="flex:2">
+                        <p>{{ item.product.name }}</p>
+                    </div>
+                    <div style="flex:1">
+                        <p>{{ item.product.price }}</p>
+                    </div>
+                    <div style="flex:1">
+                        <p class="quantity"> {{ item.quantity }}</p>
+                      {% comment %}   <div class="quantity">
+                            <img class="chg-quantity" src="{% static  'images/arrow-up.png' %}">
+
+                            <img class="chg-quantity" src="{% static  'images/arrow-down.png' %}">
+                        </div> {% endcomment %}
+                    </div>
+                    <div style="flex:1">
+                        <p>{{ item.line_total }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class='col-lg-4'>
+        <div class="grid-design">
+            <table class="table">
+                <tr>
+                    <th>
+                        <h6>Items</h6>
+                    </th>
+                    <th>
+                        <h6>Total</h6>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <h6>3</h6>
+                    </th>
+                    <th>
+                        <h6>14000 SEK</h6>
+                    </th>
+                </tr>
+            </table>
+            <a style="float:right; margin:5px;" class="btn btn-success" href="#">Checkout</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

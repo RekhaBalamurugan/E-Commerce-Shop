@@ -7,10 +7,10 @@
     <div class="col">
         <div class="display-area">
             <div class="cards-wrapper">
-                <div class="card"><img src="{% static 'images/macbook-pro-2015.jpg' %}" alt=""></div>
-                <div class="card"><img src="{% static 'images/retina2.jpg' %}" alt=""></div>
-                <div class="card"><img src="{% static 'images/retina3.jpg' %}" alt=""></div>
-                <div class="card"><img src="{% static 'images/retina4.jpg' %}" alt=""></div>
+                <div class="card"><img src="{{ itemdetail.image1_url.url }}" alt=""></div>
+                <div class="card"><img src="{{ itemdetail.image2_url.url }}" alt=""></div>
+                <div class="card"><img src="{{ itemdetail.image3_url.url }}" alt=""></div>
+                <div class="card"><img src="{{ itemdetail.image4_url.url }}" alt=""></div>
             </div>
         </div>
 
@@ -32,22 +32,4 @@
         <a class="btn btn-outline-success"> Add to Cart </a>
     </div>
 </div>
-{% comment %} <div class="cards-wrapper">
-    <div class="card"><img src="{% static 'images/apple.jpg' %}" alt=""></div>
-    <div class="card"><img src="{% static 'images/macbook2.jpg' %}" alt=""></div>
-    {% comment %} <div class="card"><img src="{% static 'images/macbook3.jpg' %}" alt=""></div> {% endcomment %}
-    {% comment %} <div class="card"><img src="https://picsum.photos/200?random=2" alt=""></div>
-    <div class="card"><img src="https://picsum.photos/200?random=3" alt=""></div>
-    <div class="card"><img src="https://picsum.photos/200?random=4" alt=""></div> {% endcomment %}
-    {% comment %}
-</div>
-<div class="dots-wrapper">
-    <button class="dot active"></button>
-    <button class="dot"></button>
-    <button class="dot"></button>
-    <button class="dot"></button>
-</div> {% endcomment %}
-
-
-
 {% endblock %}

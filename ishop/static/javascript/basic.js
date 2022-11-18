@@ -1,4 +1,4 @@
-
+/* Image Slider in productDetails page */
 const wrapper = document.querySelector('.cards-wrapper');
 const dots = document.querySelectorAll('.dot');
 let activeDotNum = 0;
@@ -22,3 +22,20 @@ dots.forEach((dot, idx) => {
 
     });
 });
+
+/* Navbar Dropdown */
+   
+
+    $('a.dropdown-toggle').click(function () {
+        if (!$(this).next().hasClass('show')) {
+            $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+        }
+        var $subMenu = $(this).next(".dropdown-menu");
+        $subMenu.toggleClass('show');
+
+
+        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
+            $('.dropdown-submenu .show').removeClass("show");
+        });   
+    });
+ 
