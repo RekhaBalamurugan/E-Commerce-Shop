@@ -1,0 +1,35 @@
+{% extends "store/base.html" %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<title> Products </title>
+{% block body_block %}
+<h3> Product Page </h3>
+<div class="row">
+    {% for item in products %}
+    <div class="col-lg-4 bg-image hover-zoom">
+        <div class="product-thumbnail">
+            <div class="product-thumbnail-hover">
+                <img class="thumbnail" src="{{ item.image1_url.url }}">
+                <div class="box-element product">
+                    <h6> {{item.name}} </h6>
+                    <hr>
+
+                    <form action="{% url 'store:add_item_to_cart' %}" method="post">
+                        {% csrf_token %}
+                        <div onclick="productCalculate('{{item.id}}','-')" class="btn btn-outline-secondary">&minus;</div>
+                        <div style="pointer-events: none" id="result_div{{ item.id }}" class="btn btn-outline-secondary">1</div>
+                        <div onclick="productCalculate('{{item.id}}','+')" class="btn btn-outline-secondary">&plus;</div>
+                        <input type="hidden" name="request_path" value="{{request.path}}">
+                        <input type="hidden" name="item_id" value="{{item.id}}">
+                        <button id="add_btn{{item.id}}" type="submit" name='add_btn' value='1' class="btn btn-outline-secondary add-btn"> Add to Cart </button>
+                    </form>
+                    <br />
+                    <a class="btn btn-outline-success" href="{% url 'store:productdetails' item.id %}"> View </a>
+                    <h6 style="display:inline-block; float: right; padding-top:8px"> {{item.price}} SEK</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

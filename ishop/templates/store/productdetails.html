@@ -1,0 +1,43 @@
+{% extends "store/base.html" %}
+<title>IndexPage</title>
+{% load static %}
+{% block body_block %}
+
+<div class="row">
+    <div class="col">
+        <div class="display-area">
+            <div class="cards-wrapper">
+                <div class="card"><img src="{{ itemdetail.image1_url.url }}" alt=""></div>
+                <div class="card"><img src="{{ itemdetail.image2_url.url }}" alt=""></div>
+                <div class="card"><img src="{{ itemdetail.image3_url.url }}" alt=""></div>
+                <div class="card"><img src="{{ itemdetail.image4_url.url }}" alt=""></div>
+            </div>
+        </div>
+
+        <div class="dots-wrapper">
+            <button class="dot active"></button>
+            <button class="dot"></button>
+            <button class="dot"></button>
+            <button class="dot"></button>
+        </div>
+    </div>
+    <div class="col">
+        <h3> {{ itemdetail.name }} </h3>
+        <p> {{itemdetail.description}}</p>
+        <hr>
+        <h7 class="red"> SEK {{ itemdetail.price }} </h7>
+        <br>
+        <span style="font-weight:italic;"><i> Incl. VAT Delivery usually within 24h</i> </span>
+        <br><br>
+        <form action="{% url 'store:add_item_to_cart' %}" method="post">
+            {% csrf_token %}
+            <div onclick="productCalculate('{{itemdetail.id}}','-')" class="btn btn-outline-secondary">&minus;</div>
+            <div style="pointer-events: none" id="result_div{{ itemdetail.id }}" class="btn btn-outline-secondary">1</div>
+            <div onclick="productCalculate('{{itemdetail.id}}','+')" class="btn btn-outline-secondary">&plus;</div>
+            <input type="hidden" name="request_path" value="{{request.path}}">
+            <input type="hidden" name="item_id" value="{{itemdetail.id}}">
+            <button id="add_btn{{itemdetail.id}}" type="submit" name='add_btn' value='1' class="btn btn-outline-secondary add-btn"> Add to Cart </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
