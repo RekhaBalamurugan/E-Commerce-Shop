@@ -9,10 +9,10 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
-    <script defer src="{% static 'javascript/basic.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script defer src="{% static 'javascript/basic.js' %}"></script>
 
     <!--  <script src="https://code.jquery.com/jquery-3.6.1.js"
         integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script> -->
@@ -21,19 +21,21 @@
 
 <body>
     <nav id="navbar" class="navbar navbar-expand-lg navbar-custom">
-        <div class="container-fluid">
+        <div class="container-fluid justify-content-md-center">
             <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'images/ishop.png' %}"
                     style="width:150px;height:80px"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon bg-light"></span>
-            </button>
+
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <form action="/search" method="GET" class="form-inline">
+                    <input class="form-control mr-sm-2" name="searchtext" type="search" placeholder="Search"
+                        aria-label="Search" style="border-radius: 20px">
+                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </form>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link">
                             {% if user.is_authenticated %}
-                            welcome {{user.username}}
+                            Welcome <b> {{user.first_name}} </b>
                             {% endif %}
                         </a>
                     </li>
@@ -44,37 +46,30 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
-                            Collections
+                            Products
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             {% for category in categorylist %}
                             <li class="dropdown-submenu">
-                                <a class="dropdown-item dropdown-toggle" href="{{ category.get_absolute_url }}">
-                                    {{ category.name }}</a>
+                                <a class="dropdown-item dropdown-toggle" href="#">
+                                    {{ category }}</a>
                                 <ul class="dropdown-menu">
-                                    {% for subcategory in subcategorylist %}
+                                    {% for subcategory in categorylist|dict_key:category %}
                                     <li><a class="dropdown-item"
-                                            href="{{ subcategory.get_absolute_url }}">{{subcategory.name}}</a></li>
+                                            href="{% url 'store:products' subcategory.id %}">{{subcategory.name}}</a>
+                                    </li>
                                     {% endfor %}
                                 </ul>
                             </li>
-                          
                             {% endfor %}
                         </ul>
                     </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'store:products' %}">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-
+                    <li><a class="nav-link" href="#">Contact</a></li>
                     {% if user.is_authenticated %}
-                    <li><a class="nav-link" href="{% url 'logout' %}">logout</a></li>
+                    <li><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
                     {% else %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'store:register' %}">Register</a></li>
-                    <li><a class="nav-link" href="{% url 'store:user_login' %}">login</a></li>
+                    <li><a class="nav-link" href="{% url 'store:user_login' %}">Login</a></li>
                     {% endif %}
 
                     <li class="nav-item">
@@ -82,9 +77,10 @@
                             <img id="cart-icon" src="{% static 'images/cart3.png' %}">
                         </a>
                         <span id="cart-price"> {% if total_amount > 0 %} {{ total_amount }} {% endif %} <span>
-                        <span id="cart-total" style="position:absoulte;top:-5px">{{ item_count }}<span>
+                                <span id="cart-total" style="position:absoulte;top:-5px">{{ item_count }}<span>
                     </li>
                 </ul>
+
             </div>
         </div>
     </nav>

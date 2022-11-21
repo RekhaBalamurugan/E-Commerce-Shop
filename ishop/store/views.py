@@ -6,12 +6,23 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from store.models import Cart
+from django.template.defaultfilters import register
 
+@register.filter(name='dict_key')
+def dict_key(dict, key):
+    return dict[key]
+
+def getCategoryList():
+    categorylist = {}
+    for category in Category.objects.filter(ref__isnull=True):
+        categorylist[category.name] = Category.objects.filter(ref__id=category.id)
+    return categorylist
 
 def get_or_create_session_key(request):
     if not request.session.session_key:
         request.session.save()
     return request.session.session_key
+
 
 def getCart(request):
     cart = Cart()
@@ -21,18 +32,17 @@ def getCart(request):
 
 # Create your views here.
 
+
 def index(request):
-
-    categorylist=Category.objects.filter(ref__isnull=True)
-    subcategorylist = Category.objects.filter(ref__id=categorylist)
-
     cart = getCart(request)
-    return render(request, 'store/index.html', {'item_count': cart.get_total_qty(), 'total_amount':cart.get_total_amount(), 'categorylist': categorylist,'subcategorylist':subcategorylist})
+    return render(request, 'store/index.html', {'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
+
 
 def shoppingcart(request):
 
     cart = getCart(request)
-    return render(request, 'store/shoppingcart.html', {'cart_items':cart.get_items(), 'item_count':cart.get_total_qty(), 'total_amount':cart.get_total_amount()})
+    return render(request, 'store/shoppingcart.html', {'cart_items': cart.get_items(), 'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
+
 
 def add_item_to_cart(request):
 
@@ -40,7 +50,6 @@ def add_item_to_cart(request):
     cart = getCart(request)
 
     if request.method == 'POST' and 'request_path' in request.POST:
-
         item_id = int(request.POST.get('item_id'))
         qty = int(request.POST.get('add_btn'))
 
@@ -49,6 +58,20 @@ def add_item_to_cart(request):
         return HttpResponseRedirect(request.POST.get('request_path'))
 
     return HttpResponseRedirect(reverse('index'))
+
+
+def update_shoppingcart(request):
+
+    cart = getCart(request)
+
+    if request.method == "POST":
+
+        item_id = int(request.POST.get('item_id'))
+        qty = int(request.POST.get('item_qty'))
+
+        cart.update_item(item_id, qty)
+
+    return HttpResponseRedirect(request.POST.get('request_path'))
 
 
 @login_required
@@ -81,9 +104,9 @@ def register(request):
     return render(request, 'store/registration.html',
                   {'user_form': user_form,
                    'registered': registered,
-                   'cart_items':cart.get_items(),
-                   'item_count':cart.get_total_qty(),
-                   'total_amount':cart.get_total_amount()})
+                   'cart_items': cart.get_items(),
+                   'item_count': cart.get_total_qty(),
+                   'total_amount': cart.get_total_amount()})
 
 
 def user_login(request):
@@ -105,11 +128,12 @@ def user_login(request):
     else:
         return render(request, 'store/login.html', {})
 
-def products(request):
 
+def products(request, id):
     cart = getCart(request)
-    products = Product.objects.all()
-    my_dic = {'products': products, 'item_count':cart.get_total_qty(), 'total_amount':cart.get_total_amount()}
+    products = Product.objects.filter(category_id=id)
+    my_dic = {'products': products, 'item_count': cart.get_total_qty(
+    ), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()}
     return render(request, "store/product.html", context=my_dic)
 
 
@@ -117,5 +141,19 @@ def productdetails(request, id):
 
     cart = getCart(request)
     itemdetail = Product.objects.filter(id=id).first
-    dict = {'itemdetail': itemdetail, 'item_count':cart.get_total_qty(), 'total_amount':cart.get_total_amount()}
+    dict = {'itemdetail': itemdetail, 'item_count': cart.get_total_qty(
+    ), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()}
     return render(request, "store/productdetails.html", context=dict)
+
+
+def search(request):
+    cart = getCart(request)
+    if request.method == 'GET':
+        searchresult = request.GET.get('searchtext')
+        return_url = "?searchtext={0}".format(searchresult)
+        if searchresult:
+            products = Product.objects.filter(name__icontains=searchresult)
+            return render(request, 'store/searchpage.html', {'return_url': return_url, 'products': products, 'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
+        else:
+            print("No matching item found")
+            return render(request, 'store/searchpage.html', {'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})

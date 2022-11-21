@@ -15,6 +15,19 @@ class Cart(models.Model):
     def get_items(self):
         return CartItem.objects.filter(cart=self)
 
+    def update_item(self, item_id, qty):
+
+        item = CartItem.objects.filter(cart=self, product_id=item_id)
+
+        if item.exists():
+            item = item[0]
+            if qty == 0:
+                item.delete()
+            else:
+                item.quantity = qty
+                item.save()
+
+
     def add_item(self, item_id, qty):
 
         item = CartItem.objects.filter(cart=self, product_id=item_id)
