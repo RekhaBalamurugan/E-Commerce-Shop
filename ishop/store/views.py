@@ -41,7 +41,11 @@ def index(request):
 def shoppingcart(request):
 
     cart = getCart(request)
-    return render(request, 'store/shoppingcart.html', {'cart_items': cart.get_items(), 'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
+    if cart.get_total_amount() <= 3000:
+        shippingcost= cart.get_total_amount() + 69
+    else:
+        shippingcost = cart.get_total_amount()
+    return render(request, 'store/shoppingcart.html', {'cart_items': cart.get_items(), 'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList(),'shippingcost':shippingcost})
 
 
 def add_item_to_cart(request):
@@ -70,7 +74,6 @@ def update_shoppingcart(request):
         qty = int(request.POST.get('item_qty'))
 
         cart.update_item(item_id, qty)
-
     return HttpResponseRedirect(request.POST.get('request_path'))
 
 
