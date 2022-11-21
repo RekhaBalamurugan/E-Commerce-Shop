@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^store/', include('store.urls')),
     url(r'^logout/$',views.user_logout,name='logout'),
-    url(r'^special/',views.special,name='special')
+    url(r'^special/',views.special,name='special'),
+    url('search/',views.search,name="search"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
