@@ -25,12 +25,15 @@
                         <p>{{ item.product.price }}</p>
                     </div>
                     <div style="flex:1">
-                        <p class="quantity"> {{ item.quantity }}</p>
-                      {% comment %}   <div class="quantity">
-                            <img class="chg-quantity" src="{% static  'images/arrow-up.png' %}">
-
-                            <img class="chg-quantity" src="{% static  'images/arrow-down.png' %}">
-                        </div> {% endcomment %}
+                        <form id="updatecart{{item.product.id}}" action="{% url 'store:update_shoppingcart' %}" method="post">
+                            {% csrf_token %}
+                            <div onclick="updateCart('{{item.product.id}}','-')" class="btn btn-outline-secondary">&minus;</div>
+                            <div style="pointer-events: none" id="qty_div{{ item.product.id }}" class="btn btn-outline-secondary">{{ item.quantity }}</div>
+                            <input type="hidden" name="request_path" value="{{request.path}}">
+                            <input type="hidden" name="item_id" value="{{item.product.id}}">
+                            <input type="hidden" id="qty_input{{item.product.id}}" name="item_qty" value="{{ item.quantity }}">
+                            <div onclick="updateCart('{{item.product.id}}','+')" class="btn btn-outline-secondary">&plus;</div>
+                        </form>
                     </div>
                     <div style="flex:1">
                         <p>{{ item.line_total }}</p>
