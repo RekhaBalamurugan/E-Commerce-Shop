@@ -51,6 +51,20 @@ def add_item_to_cart(request):
     return HttpResponseRedirect(reverse('index'))
 
 
+def update_shoppingcart(request):
+
+    cart = getCart(request)
+
+    if request.method == "POST":
+
+        item_id = int(request.POST.get('item_id'))
+        qty = int(request.POST.get('item_qty'))
+
+        cart.update_item(item_id, qty)
+
+    return HttpResponseRedirect(request.POST.get('request_path'))
+
+
 @login_required
 def special(request):
     return HttpResponse("you are logged in!,Nice!")

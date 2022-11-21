@@ -58,3 +58,23 @@ function productCalculate(id, operator){
     result_div.textContent = new_value;
 
 }
+
+
+function updateCart(id, operator) {
+
+    qty_input = document.getElementById('qty_input' + id);
+    qty = Number(qty_input.getAttribute('value'));
+
+    if (operator == "+"){
+        qty = qty + 1;
+    }
+
+    if (operator == "-"){
+        qty = qty > 1 ? qty - 1 : 0;
+    }
+
+    qty_input.setAttribute('value', qty);
+    document.getElementById('qty_div' + id).textContent = qty;
+
+    document.getElementById('updatecart'+id).submit();
+}
