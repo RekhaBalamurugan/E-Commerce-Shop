@@ -58,6 +58,8 @@ class Cart(models.Model):
 class Category(models.Model):
     ref = models.ForeignKey("self", models.DO_NOTHING, blank=True, null=True)
     name = models.CharField(max_length=100)
+    image = models.ImageField(default="placeholder.png", upload_to='images',blank=True)
+
 
     class Meta:
         managed = True
