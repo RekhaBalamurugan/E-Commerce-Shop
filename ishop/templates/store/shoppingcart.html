@@ -84,7 +84,7 @@
             </table>  
         </div>
         <div>
-            <a style="float:right; margin:5px;" class="btn btn-success" href="#">Checkout</a>
+            <a style="float:right; margin:5px;" class="btn btn-success {% if item_count < 1 %}disabled{% endif %}" href="{% url 'store:checkout' %}">Checkout</a>
         </div>
     </div>
 </div>
