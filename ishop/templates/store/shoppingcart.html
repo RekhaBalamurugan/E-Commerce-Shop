@@ -5,64 +5,86 @@
 <h4>Place your order </h4>
 
 <div class='row'>
-    <div class='col-lg-8'>
+    <div class='col-lg-9'>
         <div class="grid-design">
             <div class="cart-row">
-                <div style="flex:2"></div>
+                <div style="flex:1"></div>
                 <div style="flex:2"><b>Item</b></div>
                 <div style="flex:1"><b>Unit Price</b></div>
-                <div style="flex:1"><b>Quantity</b></div>
+                <div style="flex:2"><b>Quantity</b></div>
                 <div style="flex:1"><b>Total</b></div>
             </div>
             {% for item in cart_items %}
 
-                <div class="cart-row shadow-lg p-1 bg-white rounded">
-                    <div style="flex:2"><img class="row-image" src="{{ item.product.image1_url.url }}"></div>
-                    <div style="flex:2">
-                        <p>{{ item.product.name }}</p>
-                    </div>
-                    <div style="flex:1">
-                        <p>{{ item.product.price }}</p>
-                    </div>
-                    <div style="flex:1">
-                        <form id="updatecart{{item.product.id}}" action="{% url 'store:update_shoppingcart' %}" method="post">
-                            {% csrf_token %}
-                            <div onclick="updateCart('{{item.product.id}}','-')" class="btn btn-outline-secondary">&minus;</div>
-                            <div style="pointer-events: none" id="qty_div{{ item.product.id }}" class="btn btn-outline-secondary">{{ item.quantity }}</div>
-                            <input type="hidden" name="request_path" value="{{request.path}}">
-                            <input type="hidden" name="item_id" value="{{item.product.id}}">
-                            <input type="hidden" id="qty_input{{item.product.id}}" name="item_qty" value="{{ item.quantity }}">
-                            <div onclick="updateCart('{{item.product.id}}','+')" class="btn btn-outline-secondary">&plus;</div>
-                        </form>
-                    </div>
-                    <div style="flex:1">
-                        <p>{{ item.line_total }}</p>
-                    </div>
+            <div class="cart-row shadow-lg p-1 bg-white rounded">
+                <div style="flex:1"><img class="row-image" src="{{ item.product.image1_url.url }}"></div>
+                <div style="flex:2">
+                    <p>{{ item.product.name }}</p>
                 </div>
+                <div style="flex:1">
+                    <p>{{ item.product.price }}</p>
+                </div>
+                <div style="flex:2 ">
+                    <form id="updatecart{{item.product.id}}" action="{% url 'store:update_shoppingcart' %}"
+                        method="post">
+                        {% csrf_token %}
+                        <div onclick="updateCart('{{item.product.id}}','-')" class="btn btn-outline-secondary">&minus;
+                        </div>
+                        <div style="pointer-events: none" id="qty_div{{ item.product.id }}"
+                            class="btn btn-outline-secondary">{{ item.quantity }}</div>
+                        <input type="hidden" name="request_path" value="{{request.path}}">
+                        <input type="hidden" name="item_id" value="{{item.product.id}}">
+                        <input type="hidden" id="qty_input{{item.product.id}}" name="item_qty"
+                            value="{{ item.quantity }}">
+                        <div onclick="updateCart('{{item.product.id}}','+')" class="btn btn-outline-secondary">&plus;
+                        </div>
+                    </form>
+                </div>
+                <div style="flex:1">
+                    <p>{{ item.line_total }}</p>
+                </div>
+            </div>
             {% endfor %}
         </div>
     </div>
-    <div class='col-lg-4'>
+    <div class='col-lg-3'>
         <div class="grid-design">
-            <table class="table">
+            <table class="table" style="border-style:none">
                 <tr>
                     <th>
-                        <h6>Items</h6>
+                        <h6><b>Total</b></h6>
                     </th>
                     <th>
-                        <h6>Total</h6>
+                        <h6><b> {{ shippingcost }} Kr</b>  </h6>
+                    </th>
+                </tr>     
+                <tr style="heigth:15px">
+                    <td colspan="2"></td>
+                </tr>           
+                <tr>
+                    <th>
+                        <h6>{{ item_count }} Product</h6>
+                    </th>
+                    <th>
+                        <h6>{{ total_amount }} Kr </h6>
                     </th>
                 </tr>
                 <tr>
                     <th>
-                        <h6>{{ item_count }}</h6>
+                        <h6>Shipping from: </h6>
                     </th>
                     <th>
-                        <h6>{{ total_amount }}</h6>
+                        {% if total_amount <= 3000  %}  
+                        <h6> 69 Kr </h6>
+                        {% else %}
+                        <h6> 0 Kr </h6>
+                        {% endif %}
                     </th>
-                </tr>
-            </table>
-            <a style="float:right; margin:5px;" class="btn btn-success" href="#">Checkout</a>
+                </tr> 
+            </table>  
+        </div>
+        <div>
+            <a style="float:right; margin:5px;" class="btn btn-success {% if item_count < 1 %}disabled{% endif %}" href="{% url 'store:checkout' %}">Checkout</a>
         </div>
     </div>
 </div>

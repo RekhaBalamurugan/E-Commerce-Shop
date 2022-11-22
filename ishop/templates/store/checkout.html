@@ -1,0 +1,126 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block body_block %}
+<h1>Checkout</h1>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="box-element" id="form-wrapper">
+            <form id="form">
+                {% csrf_token %}
+                <div id="user-info">
+                    <hr>
+                    <h5>Your Information:</h5>
+                    <div class="form-field">
+                        <p>Email (for order confirmation, etc)</p>
+                        <input required class="form-control" type="email" id="emailOrderConfig" name="emailOrderConfig"
+                            placeholder="Email address">
+                    </div>
+                </div>
+                <div id="delivery-info">
+                    <hr>
+                    <h5>Delivery option:</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="deliveryOption" id="deliveryOption1" checked>
+                        <label class="form-check-label" for="deliveryOption1">
+                            PostNord
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="deliveryOption" id="deliveryOption2">
+                        <label class="form-check-label" for="deliveryOption2">
+                            PostNord Homedelivery
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="deliveryOption" id="deliveryOption3">
+                        <label class="form-check-label" for="deliveryOption3">
+                            Budbee
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="deliveryOption" id="deliveryOption4">
+                        <label class="form-check-label" for="deliveryOption4">
+                            Instabox
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="deliveryOption" id="deliveryOption5">
+                        <label class="form-check-label" for="deliveryOption5">
+                            DHL Service Point
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="deliveryOption" id="deliveryOption6">
+                        <label class="form-check-label" for="deliveryOption6">
+                            Schenker
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="deliveryOption" id="deliveryOption7">
+                        <label class="form-check-label" for="deliveryOption7">
+                            Airmee home delivery
+                        </label>
+                    </div>
+                </div>
+                <div id="delivery-notification">
+                    <hr>
+                    <h5>Delivery notification:</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="deliveryNotification"
+                            id="deliveryNotification1" checked>
+                        <label class="form-check-label" for="deliveryNotification1">
+                            SMS
+                        </label>
+                        <div class="form-field">
+                            <input class="form-control" type="text" id="phoneNumberNotification"
+                                name="phoneNumberNotification" placeholder="Phone #">
+                        </div>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="deliveryNotification"
+                            id="deliveryNotification2">
+                        <label class="form-check-label" for="deliveryNotification2">
+                            Email
+                        </label>
+                        <div class="form-field">
+                            <input class="form-control" type="email" id="emailNotification" name="emailNotification"
+                                placeholder="Email address">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="shipping-info">
+                    <hr>
+                    <h5>Shipping Information:</h5>
+                    <div class="form-field">
+                        <input required class="form-control" type="email" name="email" placeholder="Email">
+                    </div>
+                    <div class="form-field">
+                        <input required class="form-control" type="text" name="zipcode" placeholder="Zip code">
+                    </div>
+                    <div class="form-field">
+                        <input required class="form-control" type="text" name="firstname" placeholder="Firstname">
+                    </div>
+                    <div class="form-field">
+                        <input required class="form-control" type="text" name="lastname" placeholder="Lastname">
+                    </div>
+                    <div class="form-field">
+                        <input required class="form-control" type="text" name="street" placeholder="Street">
+                    </div>
+                    <div class="form-field">
+                        <input required class="form-control" type="text" name="city" placeholder="City">
+                    </div>
+                    <div class="form-field">
+                        <input required class="form-control" type="text" name="phone" placeholder="Phone">
+                    </div>
+                    <div class="form-field">
+                        <input required class="form-control" type="text" name="country" placeholder="Country">
+                    </div>
+                </div>
+                <button type="submit" name='pay_btn' class="btn btn-success">Pay purchase</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
