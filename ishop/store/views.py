@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
-from store.models import Cart
+from store.models import *
 from django.template.defaultfilters import register
 
 @register.filter(name='dict_key')
@@ -35,13 +35,20 @@ def getCart(request):
 
 def index(request):
     cart = getCart(request)
-    return render(request, 'store/index.html', {'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
+
+    
+
+    return render(request, 'store/index.html',  {'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
 
 
 def shoppingcart(request):
 
     cart = getCart(request)
-    return render(request, 'store/shoppingcart.html', {'cart_items': cart.get_items(), 'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
+    if cart.get_total_amount() <= 3000:
+        shippingcost= cart.get_total_amount() + 69
+    else:
+        shippingcost = cart.get_total_amount()
+    return render(request, 'store/shoppingcart.html', {'cart_items': cart.get_items(), 'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList(),'shippingcost':shippingcost})
 
 
 def add_item_to_cart(request):
@@ -70,8 +77,12 @@ def update_shoppingcart(request):
         qty = int(request.POST.get('item_qty'))
 
         cart.update_item(item_id, qty)
-
     return HttpResponseRedirect(request.POST.get('request_path'))
+
+
+def checkout(request):
+    cart = getCart(request)
+    return render(request, 'store/checkout.html', {'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
 
 
 @login_required
