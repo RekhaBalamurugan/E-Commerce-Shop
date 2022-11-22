@@ -77,6 +77,11 @@ def update_shoppingcart(request):
     return HttpResponseRedirect(request.POST.get('request_path'))
 
 
+def checkout(request):
+    cart = getCart(request)
+    return render(request, 'store/checkout.html', {'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
+
+
 @login_required
 def special(request):
     return HttpResponse("you are logged in!,Nice!")
