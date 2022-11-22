@@ -1,0 +1,28 @@
+{% load static %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>collections</h1>
+            <hr>
+            <div class="row">
+                {% for item in categorylist %}
+                <div class="col-md-2">
+                    <div class="card">
+
+                        <div class="card-body">
+                            <div class="category-image">
+                                <img src="{{ image }}" alt="">
+                            </div>
+                            <h6 class="text-center">{{ item }}</h6>
+                            <h6 class="text-center">{{ item.id }}</h6>
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

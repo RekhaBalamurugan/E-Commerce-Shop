@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
-from store.models import Cart
+from store.models import *
 from django.template.defaultfilters import register
 
 @register.filter(name='dict_key')
@@ -35,7 +35,10 @@ def getCart(request):
 
 def index(request):
     cart = getCart(request)
-    return render(request, 'store/index.html', {'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
+
+    
+
+    return render(request, 'store/index.html',  {'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
 
 
 def shoppingcart(request):

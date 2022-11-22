@@ -1,5 +1,6 @@
 {% extends "store/base.html" %}
 <title>IndexPage</title>
 {% block body_block %}
-<h1>Home</h1>
+{% include 'store/slider.html' %}
+{% include 'store/collections.html' %}
 {% endblock %}
