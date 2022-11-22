@@ -55,6 +55,9 @@ class Cart(models.Model):
             total_amount += item.line_total()
         return total_amount
 
+    def delete_all_items(self):
+        CartItem.objects.filter(cart=self).delete()
+
 class Category(models.Model):
     ref = models.ForeignKey("self", models.DO_NOTHING, blank=True, null=True)
     name = models.CharField(max_length=100)

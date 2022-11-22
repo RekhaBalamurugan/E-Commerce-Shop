@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from store.models import Product, CartItem, Category
+from django.db import transaction
 from store.forms import UserForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
@@ -83,6 +84,61 @@ def update_shoppingcart(request):
 def checkout(request):
     cart = getCart(request)
     return render(request, 'store/checkout.html', {'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
+
+
+@transaction.atomic
+def place_order(request):
+
+    cart = getCart(request)
+
+    if request.method == "POST":
+
+        #create a new order
+        order = Order()
+        order.amount = 0
+
+        customer = Customer()
+        customer.email = request.POST.get('emailCustomerInfo')
+        customer.first_name = request.POST.get('firstnameCustomerInfo')
+        customer.last_name = request.POST.get('lastnameCustomerInfo')
+        customer.phone = request.POST.get('phoneCustomerInfo')
+        customer.cart = cart
+        if request.user.is_authenticated and request.user.is_active:
+            customer.user = request.user
+        customer.save()
+
+        shipping_address = ShippingAddress()
+        shipping_address.zipcode = request.POST.get('zipcodeShippingInfo')
+        shipping_address.street = request.POST.get('streetShippingInfo')
+        shipping_address.city = request.POST.get('cityShippingInfo')
+        shipping_address.country = request.POST.get('countryShippingInfo')
+        shipping_address.save()
+
+        payment = Payment()
+        payment.amount = order.amount
+        payment.status = 1
+        payment.save()
+
+        order.customer = customer
+        order.shipping_address = shipping_address
+        order.payment = payment
+        order.save()
+
+        order_details = []
+
+        for item in cart.get_items():
+            od = OrderDetail()
+            od.product = item.product
+            od.quantity = item.quantity
+            od.order = order
+            order.amount += item.line_total()
+            order_details.append(od)
+
+        OrderDetail.objects.bulk_create(order_details)
+
+        cart.delete_all_items()
+
+    return render(request, 'store/order.html', {'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
 
 
 @login_required
