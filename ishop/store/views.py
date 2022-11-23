@@ -23,7 +23,6 @@ def getCategoryList():
         categorylist["subcategorylist"][category.name] = Category.objects.filter(
             ref__id=category.id)
         categorylist[category.name] = Category.objects.filter(name=category.name)
-        print(categorylist)
     return categorylist 
 
 def get_or_create_session_key(request):

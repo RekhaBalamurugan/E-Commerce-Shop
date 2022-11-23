@@ -13,8 +13,8 @@
                 <div class="product-thumbnail-hover">
                     {% for category in categorylist|dict_key:item %}
                     <a href="{{ category.name }}" class="category text-dark" style="text-decoration:none ;"><img
-                            src="{{ category.image.url }}" class="img-thumbnail" alt="burger" class="rounded"
-                            style="height:100px;border:0" ><br>
+                            src="{{ category.image.url }}" class="img-thumbnail" class="rounded"
+                            style="height:100px;"><br>
                         {{ category.name }}</a>
                     {% endfor %}
                 </div>
@@ -37,15 +37,23 @@
         <div id="{{category.name}}">
             <div class="row mx-auto">
                 <div class="col mx-auto">
-                            {% for subcategory in categorylist.subcategorylist|dict_key:item %}
-                            <div style="flex:1;display: inline-block;margin-top: 30px;margin-right: 10px;">
+                    <br>
+                    <h5 class="active1">Under {{category.name}}</h5>
+                    <div class="product-thumbnail">
+
+                        {% for subcategory in categorylist.subcategorylist|dict_key:item %}
+                        <div style="flex:1;display: inline-block;margin-top: 5px;margin-right: 20px;color: brown;">
+                            <div class="product-thumbnail-hover">
                                 <a href="{% url 'store:products' subcategory.id %}" class="acenter text-dark"
                                     style="text-decoration:none;"> <img src="{{ subcategory.image.url }}"
-                                        class="img-thumbnail" class="rounded" style="height:100px;border:0"><br>
+                                        class="img-thumbnail" class="rounded" style="height:100px;border:3"><br>
                                     {{ subcategory.name }} </a>
                             </div>
-                    {% endfor %}
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
+
             </div>
         </div>
         {% endfor %}
