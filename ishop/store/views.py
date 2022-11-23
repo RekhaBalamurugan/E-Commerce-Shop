@@ -159,7 +159,11 @@ def special(request):
 
 @login_required
 def user_logout(request):
+    cart = getCart(request)
     logout(request)
+    request.session.save()
+    cart.session_id = request.session.session_key
+    cart.save()
     return HttpResponseRedirect(reverse('index'))
 
 
@@ -188,14 +192,18 @@ def register(request):
 
 
 def user_login(request):
+
+    cart = getCart(request)
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
-        print(user)
         if user:
             if user.is_active:
                 login(request, user)
+                cart.session_id = request.session.session_key
+                cart.save()
                 return HttpResponseRedirect(reverse('index'))
             else:
                 return HttpResponse('Account not active')
@@ -204,7 +212,7 @@ def user_login(request):
             print("username: {} and password {}".format(username, password))
             return HttpResponse('invalid login details')
     else:
-        return render(request, 'store/login.html', {'categorylist': getCategoryList()})
+        return render(request, 'store/login.html', {'cart_items': cart.get_items(), 'item_count': cart.get_total_qty(), 'categorylist': getCategoryList()})
 
 
 def products(request, id):
