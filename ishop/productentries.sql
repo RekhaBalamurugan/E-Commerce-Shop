@@ -1,26 +1,27 @@
 
 -- Categories
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Computers', null);
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Laptop', '1');
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Desktop', '1');
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Tablet', '1');
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Mobile', null);
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Apple', '5');
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Samsung', '5');
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Sony', '5');
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Oneplus', '5');
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Xiaomi', '5');
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Accessories', null);
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Printer', '11');
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Router & Network', '11');
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Wireless Keyboard', '11');
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Powerbank', '11');
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Sound', null);
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Headphone', '16');
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Speaker', '16');
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Gaming', null);
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('VR Gaming', '19');
-INSERT INTO "store_category" ("name", "ref_id") VALUES ('Gaming Accessories', '19');
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Computers', 'images/computers_1BZTGxx.png', null);
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Laptop', 'images/laptop_F0lqY7m.webp', '1');
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Desktop', 'images/delldesktop1_2sccRNQ.webp', '1');
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Tablet', 'images/ipad1_vf0qeXv.webp', '1');
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Mobile', 'images/mobilephone_HstyrQ0.png', null);
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Apple', 'images/iPhone-logo.jpg', '5');
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Samsung', 'images/Samsung-Logo.webp', '5');
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Sony', 'images/sonylogo.png', '5');
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Motorola', 'images/Motorola-logo.jpg', '5');
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Xiaomi', 'images/Mi-logo.jpg', '5');
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Accessories', 'images/Accessories_7kWgqWQ.jpg', null);
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Printer', 'images/HP_Deskjet_img4_L9whhEi.webp', '11');
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Router & Network', 'images/Asus_4G-AX56U_AX1800_4G_router_with_Wifi_6_img1_audCBZc.webp', '11');
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Wireless Keyboard', 'images/DELTACO_wireless_keyboard_img1_6phjFEJ.jpg', '11');
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Powerbank', 'images/MagSafe_Charger_Belkin_Boost_Charge_Powerbank_2.5K_img1_u6b5Vd6.webp', '11');
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Sound', 'images/Headphones_vuU6941.jpg', null);
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Headphone', 'images/Voxicon_Headphones_GR8_Premium_V.2_ANC_img1_TnIEUVK.webp', '16');
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Speaker', 'images/Sudio_Fifty_Wireless_Portable_Speaker_Black_img1_LIALMC1.webp', '16');
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Gaming', 'images/gaming2_hVO44Zh.png', null);
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('VR Gaming', 'images/Pico_4_All-in-One_VR_headset_128GB_img1_BXv7jKw_a9NaKCL.webp', '19');
+INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Gaming Accessories', 'images/gaming2_APLa7gx.png', '19');
+
 
 -- Inventory
 insert into store_inventory ("quantity") values (123);
@@ -40,6 +41,54 @@ insert into store_inventory ("quantity") values (9);
 insert into store_inventory ("quantity") values (17);
 insert into store_inventory ("quantity") values (34);
 insert into store_inventory ("quantity") values (12);
+insert into store_inventory ("quantity") values (123);
+insert into store_inventory ("quantity") values (34);
+insert into store_inventory ("quantity") values (37);
+insert into store_inventory ("quantity") values (434);
+insert into store_inventory ("quantity") values (53);
+insert into store_inventory ("quantity") values (45);
+insert into store_inventory ("quantity") values (3);
+insert into store_inventory ("quantity") values (45);
+insert into store_inventory ("quantity") values (1);
+insert into store_inventory ("quantity") values (56);
+insert into store_inventory ("quantity") values (23);
+insert into store_inventory ("quantity") values (2);
+insert into store_inventory ("quantity") values (7);
+insert into store_inventory ("quantity") values (9);
+insert into store_inventory ("quantity") values (17);
+insert into store_inventory ("quantity") values (34);
+insert into store_inventory ("quantity") values (12);
+insert into store_inventory ("quantity") values (123);
+insert into store_inventory ("quantity") values (34);
+insert into store_inventory ("quantity") values (37);
+insert into store_inventory ("quantity") values (434);
+insert into store_inventory ("quantity") values (53);
+insert into store_inventory ("quantity") values (45);
+insert into store_inventory ("quantity") values (3);
+insert into store_inventory ("quantity") values (45);
+insert into store_inventory ("quantity") values (1);
+insert into store_inventory ("quantity") values (56);
+insert into store_inventory ("quantity") values (23);
+insert into store_inventory ("quantity") values (2);
+insert into store_inventory ("quantity") values (7);
+insert into store_inventory ("quantity") values (9);
+insert into store_inventory ("quantity") values (17);
+insert into store_inventory ("quantity") values (34);
+insert into store_inventory ("quantity") values (12);
+insert into store_inventory ("quantity") values (123);
+insert into store_inventory ("quantity") values (34);
+insert into store_inventory ("quantity") values (37);
+insert into store_inventory ("quantity") values (434);
+insert into store_inventory ("quantity") values (53);
+insert into store_inventory ("quantity") values (45);
+insert into store_inventory ("quantity") values (3);
+insert into store_inventory ("quantity") values (45);
+insert into store_inventory ("quantity") values (1);
+insert into store_inventory ("quantity") values (56);
+insert into store_inventory ("quantity") values (23);
+insert into store_inventory ("quantity") values (2);
+insert into store_inventory ("quantity") values (7);
+insert into store_inventory ("quantity") values (9);
 
 -- Products
 INSERT INTO "store_product" ("name", "price", "description", "image1_url", "image2_url", "image3_url", "image4_url", "category_id", "inventory_id") VALUES ('Dell Latitude 7480 with Touch i7 16GB 512SSD', '10000', 'Used Dell Latitude 7480 with 1 year warranty! Laptop from Dell with 14" FullHD touch screen, powerful Intel i7 processor, practical backlit keyboard, lightning-fast 512GB SSD hard disk and 16GB RAM. Comes with Windows 10 Pro', 'dell1.png', 'dell2.png', 'dell3.png', 'dell4.png', '2', '1');
@@ -59,9 +108,6 @@ INSERT INTO "store_product" ("name", "price", "description", "image1_url", "imag
 INSERT INTO "store_product" ("name", "price", "description", "image1_url", "image2_url", "image3_url", "image4_url", "category_id", "inventory_id") VALUES ('HP All-in-One 27-dp0004nw 27" Ryzen 5 8GB 512GB SSD Win10/11', '7390', 'Stylish and smartly designed desktop computer from HP with strong six-core AMD Ryzen 5 processor and a spacious and fast SSD of 512 GB built into a Full HD resolution 27-inch IPS screen. Save space but still get excellent performance with HP All-in-One PCs! * Free upgrade to Windows 11!', 'images/hp-all1.webp', 'images/hp-all2.webp', 'images/hp-all3.webp', 'images/hp-all4.webp', '3', '15');
 INSERT INTO "store_product" ("name", "price", "description", "image1_url", "image2_url", "image3_url", "image4_url", "category_id", "inventory_id") VALUES ('Apple iPhone 14 (128GB, Blue)', '11990', 'iPhone 14 smartphone is equipped with an amazing dual 12 Mpx camera setup with Photonic Engine, powerful A15 Bionic processor and 5G data connection. The large battery lasts longer and has both wired and MagSafe wireless charging.', 'images/iphone1.webp', 'images/iphone2.webp', 'images/iphone3.webp', 'placeholder.png', '6', '16');
 INSERT INTO "store_product" ("name", "price", "description", "image1_url", "image2_url", "image3_url", "image4_url", "category_id", "inventory_id") VALUES ('iPhone 13 – 5G smartphone 128GB Pink', '9690', 'New iPhone 13 smartphone has an improved dual 12Mpx camera with sensor-shift OIS and A15 Bionic processor with 5G support and powerful AI functions. It is IP68 certified and very durable.', 'images/iphone-131.webp', 'images/iphone-132.webp', 'images/iphone-133.webp', 'images/iphone-134.webp', '6', '17');
-
-
--- Latest 23/11
 
 -- New Entries for ProductTable
 INSERT INTO "store_product" ("name", "price", "description", "image1_url", "image2_url", "image3_url", "image4_url", "category_id", "inventory_id") VALUES ('Samsung Galaxy S22 128 GB', '12564', 'Samsung Galaxy S22 is a great mobile. Slim design, sharp cameras and a battery that supports wireless battery sharing. The mobile is waterproof according to IP68.', 'images/Samsung_Galaxy_S22_128_GB.jfif', 'images/Samsung_Galaxy_S22_128_GBimg2.jfif', 'images/Samsung_Galaxy_S22_128_GBimg3.jfif', 'placeholder.png', '7', '18');
@@ -125,102 +171,17 @@ insert into store_product select * from _store_product_old;
 drop table _store_product_old;
 select * from store_product;
 
+pragma foreign_keys=on;
+
+
 pragma foreign_keys=off;
 
+alter table store_orderdetail rename to _store_orderdetail_old;
+create table "store_orderdetail" ("id" integer not null primary key autoincrement, quantity integer not null, product_id integer not null references "store_product"(id), order_id integer not null references "store_order"(id));
 
---- Entries for Category Table
+insert into store_orderdetail select * from _store_orderdetail_old;
 
+drop table _store_orderdetail_old;
 
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Computers', 'images/computers_1BZTGxx.png', null);
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Laptop', 'images/laptop_F0lqY7m.webp', '1');
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Desktop', 'images/delldesktop1_2sccRNQ.webp', '1');
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Tablet', 'images/ipad1_vf0qeXv.webp', '1');
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Mobile', 'images/mobilephone_HstyrQ0.png', null);
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Apple', 'images/iPhone-logo.jpg', '5');
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Samsung', 'images/Samsung-Logo.webp', '5');
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Sony', 'images/sonylogo.png', '5');
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Motorola', 'images/Motorola-logo.jpg', '5');
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Xiaomi', 'images/Mi-logo.jpg', '5');
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Accessories', 'images/Accessories_7kWgqWQ.jpg', null);
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Printer', 'images/HP_Deskjet_img4_L9whhEi.webp', '11');
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Router & Network', 'images/Asus_4G-AX56U_AX1800_4G_router_with_Wifi_6_img1_audCBZc.webp', '11');
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Wireless Keyboard', 'images/DELTACO_wireless_keyboard_img1_6phjFEJ.jpg', '11');
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Powerbank', 'images/MagSafe_Charger_Belkin_Boost_Charge_Powerbank_2.5K_img1_u6b5Vd6.webp', '11');
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Sound', 'images/Headphones_vuU6941.jpg', null);
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Headphone', 'images/Voxicon_Headphones_GR8_Premium_V.2_ANC_img1_TnIEUVK.webp', '16');
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Speaker', 'images/Sudio_Fifty_Wireless_Portable_Speaker_Black_img1_LIALMC1.webp', '16');
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Gaming', 'images/gaming2_hVO44Zh.png', null);
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('VR Gaming', 'images/Pico_4_All-in-One_VR_headset_128GB_img1_BXv7jKw_a9NaKCL.webp', '19');
-INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Gaming Accessories', 'images/gaming2_APLa7gx.png', '19');
-
-
---- Entries for Inventory Table
-
-insert into store_inventory ("quantity") values (123);
-insert into store_inventory ("quantity") values (34);
-insert into store_inventory ("quantity") values (37);
-insert into store_inventory ("quantity") values (434);
-insert into store_inventory ("quantity") values (53);
-insert into store_inventory ("quantity") values (45);
-insert into store_inventory ("quantity") values (3);
-insert into store_inventory ("quantity") values (45);
-insert into store_inventory ("quantity") values (1);
-insert into store_inventory ("quantity") values (56);
-insert into store_inventory ("quantity") values (23);
-insert into store_inventory ("quantity") values (2);
-insert into store_inventory ("quantity") values (7);
-insert into store_inventory ("quantity") values (9);
-insert into store_inventory ("quantity") values (17);
-insert into store_inventory ("quantity") values (34);
-insert into store_inventory ("quantity") values (12);
-insert into store_inventory ("quantity") values (123);
-insert into store_inventory ("quantity") values (34);
-insert into store_inventory ("quantity") values (37);
-insert into store_inventory ("quantity") values (434);
-insert into store_inventory ("quantity") values (53);
-insert into store_inventory ("quantity") values (45);
-insert into store_inventory ("quantity") values (3);
-insert into store_inventory ("quantity") values (45);
-insert into store_inventory ("quantity") values (1);
-insert into store_inventory ("quantity") values (56);
-insert into store_inventory ("quantity") values (23);
-insert into store_inventory ("quantity") values (2);
-insert into store_inventory ("quantity") values (7);
-insert into store_inventory ("quantity") values (9);
-insert into store_inventory ("quantity") values (17);
-insert into store_inventory ("quantity") values (34);
-insert into store_inventory ("quantity") values (12);
-insert into store_inventory ("quantity") values (123);
-insert into store_inventory ("quantity") values (34);
-insert into store_inventory ("quantity") values (37);
-insert into store_inventory ("quantity") values (434);
-insert into store_inventory ("quantity") values (53);
-insert into store_inventory ("quantity") values (45);
-insert into store_inventory ("quantity") values (3);
-insert into store_inventory ("quantity") values (45);
-insert into store_inventory ("quantity") values (1);
-insert into store_inventory ("quantity") values (56);
-insert into store_inventory ("quantity") values (23);
-insert into store_inventory ("quantity") values (2);
-insert into store_inventory ("quantity") values (7);
-insert into store_inventory ("quantity") values (9);
-insert into store_inventory ("quantity") values (17);
-insert into store_inventory ("quantity") values (34);
-insert into store_inventory ("quantity") values (12);
-insert into store_inventory ("quantity") values (123);
-insert into store_inventory ("quantity") values (34);
-insert into store_inventory ("quantity") values (37);
-insert into store_inventory ("quantity") values (434);
-insert into store_inventory ("quantity") values (53);
-insert into store_inventory ("quantity") values (45);
-insert into store_inventory ("quantity") values (3);
-insert into store_inventory ("quantity") values (45);
-insert into store_inventory ("quantity") values (1);
-insert into store_inventory ("quantity") values (56);
-insert into store_inventory ("quantity") values (23);
-insert into store_inventory ("quantity") values (2);
-insert into store_inventory ("quantity") values (7);
-insert into store_inventory ("quantity") values (9);
-
-
+pragma foreign_keys=on;
 
