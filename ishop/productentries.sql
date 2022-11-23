@@ -1,3 +1,8 @@
+pragma foreign_keys=off;
+delete from store_category;
+delete from sqlite_sequence where name='store_category';
+pragma foreign_keys=on;
+
 
 -- Categories
 INSERT INTO "store_category" ("name", "image", "ref_id") VALUES ('Computers', 'images/computers_1BZTGxx.png', null);
@@ -41,6 +46,7 @@ insert into store_inventory ("quantity") values (9);
 insert into store_inventory ("quantity") values (17);
 insert into store_inventory ("quantity") values (34);
 insert into store_inventory ("quantity") values (12);
+
 insert into store_inventory ("quantity") values (123);
 insert into store_inventory ("quantity") values (34);
 insert into store_inventory ("quantity") values (37);
@@ -169,7 +175,6 @@ CREATE TABLE "store_product" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "
 insert into store_product select * from _store_product_old;
 
 drop table _store_product_old;
-select * from store_product;
 
 pragma foreign_keys=on;
 
