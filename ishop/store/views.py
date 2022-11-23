@@ -184,7 +184,7 @@ def register(request):
                    'registered': registered,
                    'cart_items': cart.get_items(),
                    'item_count': cart.get_total_qty(),
-                   'total_amount': cart.get_total_amount()})
+                   'total_amount': cart.get_total_amount(),'categorylist': getCategoryList()})
 
 
 def user_login(request):
@@ -204,7 +204,7 @@ def user_login(request):
             print("username: {} and password {}".format(username, password))
             return HttpResponse('invalid login details')
     else:
-        return render(request, 'store/login.html', {})
+        return render(request, 'store/login.html', {'categorylist': getCategoryList()})
 
 
 def products(request, id):
