@@ -78,3 +78,22 @@ function updateCart(id, operator) {
 
     document.getElementById('updatecart'+id).submit();
 }
+
+
+/* Div Hide */
+
+$(document).ready( function () {
+ 
+    $('.category').click( function (event) {
+      event.preventDefault();
+      var toLoad = this.getAttribute('href');
+  
+      loadSection(toLoad);
+    })
+  });
+  
+  function loadSection (page) {
+    var $contentHolder = $('.js-content-wrapper');
+  
+    $contentHolder.hide().load('#external-content #' + page + ' > *').fadeIn(100);
+  }

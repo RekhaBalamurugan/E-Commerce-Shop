@@ -9,15 +9,22 @@ from django.contrib.auth.decorators import login_required
 from store.models import *
 from django.template.defaultfilters import register
 
+
 @register.filter(name='dict_key')
 def dict_key(dict, key):
     return dict[key]
 
 def getCategoryList():
-    categorylist = {}
+    categorylist = {
+        "subcategorylist": {}
+    }
+
     for category in Category.objects.filter(ref__isnull=True):
-        categorylist[category.name] = Category.objects.filter(ref__id=category.id)
-    return categorylist
+        categorylist["subcategorylist"][category.name] = Category.objects.filter(
+            ref__id=category.id)
+        categorylist[category.name] = Category.objects.filter(name=category.name)
+        print(categorylist)
+    return categorylist 
 
 def get_or_create_session_key(request):
     if not request.session.session_key:
@@ -37,8 +44,6 @@ def getCart(request):
 def index(request):
     cart = getCart(request)
 
-    
-
     return render(request, 'store/index.html',  {'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
 
 
@@ -46,10 +51,10 @@ def shoppingcart(request):
 
     cart = getCart(request)
     if cart.get_total_amount() <= 3000:
-        shippingcost= cart.get_total_amount() + 69
+        shippingcost = cart.get_total_amount() + 69
     else:
         shippingcost = cart.get_total_amount()
-    return render(request, 'store/shoppingcart.html', {'cart_items': cart.get_items(), 'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList(),'shippingcost':shippingcost})
+    return render(request, 'store/shoppingcart.html', {'cart_items': cart.get_items(), 'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList(), 'shippingcost': shippingcost})
 
 
 def add_item_to_cart(request):

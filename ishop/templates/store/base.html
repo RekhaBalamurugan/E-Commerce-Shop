@@ -24,12 +24,16 @@
         <div class="container-fluid justify-content-md-center">
             <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'images/ishop.png' %}"
                     style="width:150px;height:80px"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <form action="/search" method="GET" class="form-inline">
-                    <input class="form-control mr-sm-2" name="searchtext" type="search" placeholder="Search"
-                        aria-label="Search" style="border-radius: 20px">
-                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                <form action="/search" method="GET" class="form-inline" style="width:50%">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="searchtext" placeholder="Search for products">
+                    </div>
                 </form>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
@@ -40,21 +44,23 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'index' %} active {% endif %}"
+                            aria-current="page" href="{% url 'index' %}">Home</a>
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name == 'products' %} active {% endif %}"
+                            href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
                             Products
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            {% for category in categorylist %}
+                            {% for category in categorylist.subcategorylist %}
                             <li class="dropdown-submenu">
                                 <a class="dropdown-item dropdown-toggle" href="#">
-                                    {{ category }}</a>
+                                    {{ category }} </a>
                                 <ul class="dropdown-menu">
-                                    {% for subcategory in categorylist|dict_key:category %}
+                                    {% for subcategory in categorylist.subcategorylist|dict_key:category %}
                                     <li><a class="dropdown-item"
                                             href="{% url 'store:products' subcategory.id %}">{{subcategory.name}}</a>
                                     </li>
@@ -64,12 +70,16 @@
                             {% endfor %}
                         </ul>
                     </li>
-                    <li><a class="nav-link" href="#">Contact</a></li>
+                    <li><a class="nav-link {% if request.resolver_match.url_name == 'footercontainer1' %} active {% endif %}"
+                            href="#footercontainer1">Contact</a></li>
                     {% if user.is_authenticated %}
-                    <li><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+                    <li><a class="nav-link {% if request.resolver_match.url_name == 'logout' %} active {% endif %}"
+                            href="{% url 'logout' %}">Logout</a></li>
                     {% else %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'store:register' %}">Register</a></li>
-                    <li><a class="nav-link" href="{% url 'store:user_login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == "register" %}
+                            active {% endif %}" href="{% url 'store:register' %}">Register</a></li>
+                    <li><a class="nav-link {% if request.resolver_match.url_name == 'user_login' %} active {% endif %}"
+                            href="{% url 'store:user_login' %}">Login</a></li>
                     {% endif %}
 
                     <li class="nav-item">
@@ -84,16 +94,7 @@
             </div>
         </div>
     </nav>
-    <section>
-        <nav>
-            <ol class="breadcrumb">
-                <li><a href="{% url 'index' %}">Home</a></li>
-                <li><a href="#0">Collections</a></li>
-                <li><a href="#0">Laptops</a></li>
-                <li><em>Apple </em></li>
-            </ol>
-        </nav>
-    </section>
+
 
     <div class="container">
         {% block body_block %}
@@ -103,13 +104,13 @@
     <br><br><br>
 
 
-    <div class="footercontainer">
+    <div class="footercontainer" id="footercontainer1">
         <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col col-lg-4">
                     <h5>Opening hours:</h5>
-                    <h6><b>Mon- Fri:</b> 10.00-17.00</h6>
-                    <h6><b>Sat- Sun:</b> Closed</h6>
+                    <h6><b>Mon- Sat:</b> 10.00-17.00</h6>
+                    <h6><b>Sunday:</b> Closed</h6>
                 </div>
                 <div class="col col-lg-4">
                     <h5><img id="cart-icon" src="{% static 'images/location.png' %}">Address:</h5>

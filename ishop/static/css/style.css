@@ -9,6 +9,7 @@ h4,
 h5,
 h6 {
     color: hsl(0, 0%, 30%);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .grid-design {
@@ -47,6 +48,16 @@ h6 {
     width: 35px;
     display: inline-block;
     margin-left: 15px;
+}
+
+/*Borderless table for Bootstrap */
+.table-borderless>tbody>tr>td,
+.table-borderless>tbody>tr>th,
+.table-borderless>tfoot>tr>td,
+.table-borderless>tfoot>tr>th,
+.table-borderless>thead>tr>td,
+.table-borderless>thead>tr>th {
+    border: none;
 }
 
 #cart-total {
@@ -251,9 +262,10 @@ h6 {
     margin-top: 0;
     top: 100%;
     left: 0;
-    background-color: #caf0f8; 
+    background-color: #caf0f8;
 
 }
+
 .dropdown-toggle ::after {
     border-top: 0;
 }
@@ -275,7 +287,7 @@ h6 {
     margin-left: .1rem;
     margin-right: .1rem;
     display: none;
-    background-color: #caf0f8; 
+    background-color: #caf0f8;
 }
 
 .dropdown-item {
@@ -289,3 +301,32 @@ h6 {
 .dropdown-menu.show {
     display: block;
 }
+
+.active {
+    color: #0492c2 !important;
+    font-weight: bold;
+}
+
+/*Main page Category hide and show*/
+#external-content {
+    display: none;
+}
+
+.content-section {
+    overflow: hidden;
+
+}
+
+/* Thumbnail images*/
+/* .thumbnail
+{
+    height: 200px;
+    width: 250px;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    font-size: 40px;
+    margin: 10px;
+    flex: 300px 0 0;
+    border: none;
+    text-align: center;
+} */

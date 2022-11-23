@@ -2,27 +2,55 @@
 
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>collections</h1>
-            <hr>
-            <div class="row">
-                {% for item in categorylist %}
-                <div class="col-md-2">
-                    <div class="card">
+    <h4>Main Categories</h4>
+    <hr>
 
-                        <div class="card-body">
-                            <div class="category-image">
-                                <img src="{{ image }}" alt="">
-                            </div>
-                            <h6 class="text-center">{{ item }}</h6>
-                            <h6 class="text-center">{{ item.id }}</h6>
-                        </div>
 
-                    </div>
+    <div class="row md-8">
+        {% for item in categorylist.subcategorylist %}
+        <div class="col md-2">
+            <div class="product-thumbnail">
+                <div class="product-thumbnail-hover">
+                    {% for category in categorylist|dict_key:item %}
+                    <a href="{{ category.name }}" class="category text-dark" style="text-decoration:none ;"><img
+                            src="{{ category.image.url }}" class="img-thumbnail" alt="burger" class="rounded"
+                            style="height:100px;border:0" ><br>
+                        {{ category.name }}</a>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
+        {% endfor %}
     </div>
+
+    <div class="content-section">
+        <div class="js-content-wrapper">
+
+        </div>
+    </div>
+
+    <div id="external-content">
+
+        {% for item in categorylist.subcategorylist %}
+        {% for category in categorylist|dict_key:item %}
+
+        <div id="{{category.name}}">
+            <div class="row mx-auto">
+                <div class="col mx-auto">
+                            {% for subcategory in categorylist.subcategorylist|dict_key:item %}
+                            <div style="flex:1;display: inline-block;margin-top: 30px;margin-right: 10px;">
+                                <a href="{% url 'store:products' subcategory.id %}" class="acenter text-dark"
+                                    style="text-decoration:none;"> <img src="{{ subcategory.image.url }}"
+                                        class="img-thumbnail" class="rounded" style="height:100px;border:0"><br>
+                                    {{ subcategory.name }} </a>
+                            </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endfor %}
+    </div>
+
+</div>
 </div>
