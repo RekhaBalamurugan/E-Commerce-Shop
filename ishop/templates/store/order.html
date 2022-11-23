@@ -1,4 +1,50 @@
 {% extends "store/base.html" %}
 <title>Order Page</title>
 {% block body_block %}
+
+{% if order_details %}
+
+<br />
+<br />
+<h3>Thank you for your order:</h3>
+<br />
+<br />
+
+<div class="container">
+    <h5>Orderdetails:</h5>
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Quantity</th>
+                <th>Description</th>
+                <th>Unit Price</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for od in order_details %}
+            <tr>
+                <td>{{ od.quantity }} x</td>
+                <td>{{ od.product.name }}</td>
+                <td>{{ od.product.price }}</td>
+                <td>{{ od.line_total }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td>Total Amount:</td>
+                <td></td>
+                <td></td>
+                <td>{{ order.amount }}</td>
+            </tr>
+            <tr>
+                <td>Payment method: Card</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
 {% endblock %}

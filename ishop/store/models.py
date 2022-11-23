@@ -153,3 +153,6 @@ class OrderDetail(models.Model):
 
     class Meta:
         managed = True
+
+    def line_total(self):
+        return self.quantity * self.product.price

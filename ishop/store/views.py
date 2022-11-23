@@ -95,11 +95,14 @@ def place_order(request):
 
     cart = getCart(request)
 
+    order = Order()
+    order.amount = 0
+    order_details = []
+
     if request.method == "POST":
 
         #create a new order
-        order = Order()
-        order.amount = 0
+        #order = Order()
 
         customer = Customer()
         customer.email = request.POST.get('emailCustomerInfo')
@@ -112,7 +115,7 @@ def place_order(request):
         customer.save()
 
         shipping_address = ShippingAddress()
-        shipping_address.zipcode = request.POST.get('zipcodeShippingInfo')
+        shipping_address.zipcode = request.POST.get('zipcodeShippingInfo').replace(" ", "")
         shipping_address.street = request.POST.get('streetShippingInfo')
         shipping_address.city = request.POST.get('cityShippingInfo')
         shipping_address.country = request.POST.get('countryShippingInfo')
@@ -120,15 +123,13 @@ def place_order(request):
 
         payment = Payment()
         payment.amount = order.amount
-        payment.status = 1
+        payment.status = 0
         payment.save()
 
         order.customer = customer
         order.shipping_address = shipping_address
         order.payment = payment
         order.save()
-
-        order_details = []
 
         for item in cart.get_items():
             od = OrderDetail()
@@ -138,11 +139,17 @@ def place_order(request):
             order.amount += item.line_total()
             order_details.append(od)
 
+        order.save()
         OrderDetail.objects.bulk_create(order_details)
+
+        #Fake full payment
+        payment.amount = order.amount
+        payment.status = 1
+        payment.save()
 
         cart.delete_all_items()
 
-    return render(request, 'store/order.html', {'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
+    return render(request, 'store/order.html', {'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList(), 'order': order, 'order_details': order_details})
 
 
 @login_required
