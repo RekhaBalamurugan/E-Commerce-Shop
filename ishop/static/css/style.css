@@ -6,9 +6,8 @@ h1,
 h2,
 h3,
 h4,
-h5,
-h6 {
-    color: hsl(0, 0%, 30%);
+h5 {
+    color: #0492c2 !important;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
@@ -40,6 +39,17 @@ h6 {
     box-shadow: hsl(0deg 0% 80%) 0 0 6px;
 }
 
+.subproduct-thumbnail {
+    margin: 0 10% 0 10%;
+ 
+}
+.product-thumbnail1 {
+    margin: 0 10% 0 10%;
+    border:0.5px solid black;
+}
+.product-thumbnail1-hover:hover {
+    box-shadow: hsl(0deg 0% 80%) 0 0 6px;
+}
 .bg-dark {
     background-color: #4f868c !important;
 }
@@ -331,4 +341,59 @@ h6 {
     flex: 300px 0 0;
     border: none;
     text-align: center;
+    border: 2px;
 }
+
+.img-thumbnail
+{
+    height:90px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border:0;
+}
+
+/*Search bar */
+.search {
+    width: 100%;
+    position: relative;
+    display: flex;
+    float: left;
+  }
+  
+  .searchTerm {
+    width: 100%;
+    border: 1.5px solid #0492c2;
+    border-right: none;
+    padding: 5px;
+    height: 36px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+  }
+  
+  .searchTerm:focus{
+    color: black;
+  }
+  
+  .searchButton {
+    width: 40px;
+    height: 36px;
+    border: 1px solid #0492c2;
+    background: #0492c2;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  /*Resize the wrap to see the search bar change!*/
+  .wrap{
+    width: 30%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-100%, -40%);
+    float: left;
+  }

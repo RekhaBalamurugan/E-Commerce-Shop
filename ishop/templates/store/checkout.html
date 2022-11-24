@@ -1,9 +1,9 @@
 {% extends 'store/base.html' %}
 {% load static %}
 {% block body_block %}
-<h1>Checkout</h1>
+<h4><b>Checkout</b></h4>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6" style="margin-top:-6px;">
         <div class="box-element" id="form-wrapper">
             <form id="place_order_form" action="{% url 'store:order' %}" method="post">
                 {% csrf_token %}
@@ -92,6 +92,7 @@
                 <div id="shipping-info">
                     <hr>
                     <h5>Shipping Information:</h5>
+                    <div>
                     <div class="form-field">
                         <input required class="form-control" type="email" name="emailCustomerInfo" placeholder="Email" value="{% if user %}{{user.email}}{% endif %}">
                     </div>
@@ -117,6 +118,7 @@
                         <input required class="form-control" type="text" name="countryShippingInfo" placeholder="Country">
                     </div>
                 </div>
+                <br>
                 <button type="submit" name='pay_btn' class="btn btn-success">Pay purchase</button>
             </form>
         </div>

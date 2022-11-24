@@ -31,9 +31,14 @@
 
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <form action="/search" method="GET" class="form-inline" style="width:40%">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="searchtext" placeholder="Search for products">
-                    </div>
+                    <div class="wrap">
+                        <div class="search">
+                           <input type="text" class="searchTerm" name="searchtext" placeholder="What are you looking for?">
+                           <button type="submit" class="searchButton">
+                             <i class="fa fa-search"></i>
+                          </button>
+                        </div>
+                     </div>
                 </form>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
