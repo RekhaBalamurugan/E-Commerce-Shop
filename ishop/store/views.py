@@ -91,7 +91,7 @@ def update_shoppingcart(request):
 
 def checkout(request):
     cart = getCart(request)
-    return render(request, 'store/checkout.html', {'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
+    return render(request, 'store/checkout.html', {'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList(), 'user':request.user})
 
 
 @transaction.atomic
