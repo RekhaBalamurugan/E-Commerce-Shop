@@ -8,11 +8,13 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from store.models import *
 from django.template.defaultfilters import register
+from django.db.models import Q
 
 
 @register.filter(name='dict_key')
 def dict_key(dict, key):
     return dict[key]
+
 
 def getCategoryList():
     categorylist = {
@@ -22,8 +24,10 @@ def getCategoryList():
     for category in Category.objects.filter(ref__isnull=True):
         categorylist["subcategorylist"][category.name] = Category.objects.filter(
             ref__id=category.id)
-        categorylist[category.name] = Category.objects.filter(name=category.name)
-    return categorylist 
+        categorylist[category.name] = Category.objects.filter(
+            name=category.name)
+    return categorylist
+
 
 def get_or_create_session_key(request):
     if not request.session.session_key:
@@ -101,7 +105,7 @@ def place_order(request):
 
     if request.method == "POST":
 
-        #create a new order
+        # create a new order
         #order = Order()
 
         customer = Customer()
@@ -115,7 +119,8 @@ def place_order(request):
         customer.save()
 
         shipping_address = ShippingAddress()
-        shipping_address.zipcode = request.POST.get('zipcodeShippingInfo').replace(" ", "")
+        shipping_address.zipcode = request.POST.get(
+            'zipcodeShippingInfo').replace(" ", "")
         shipping_address.street = request.POST.get('streetShippingInfo')
         shipping_address.city = request.POST.get('cityShippingInfo')
         shipping_address.country = request.POST.get('countryShippingInfo')
@@ -142,7 +147,7 @@ def place_order(request):
         order.save()
         OrderDetail.objects.bulk_create(order_details)
 
-        #Fake full payment
+        # Fake full payment
         payment.amount = order.amount
         payment.status = 1
         payment.save()
@@ -188,7 +193,7 @@ def register(request):
                    'registered': registered,
                    'cart_items': cart.get_items(),
                    'item_count': cart.get_total_qty(),
-                   'total_amount': cart.get_total_amount(),'categorylist': getCategoryList()})
+                   'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
 
 
 def user_login(request):
@@ -212,7 +217,7 @@ def user_login(request):
             print("username: {} and password {}".format(username, password))
             return HttpResponse('invalid login details')
     else:
-        return render(request, 'store/login.html', {'cart_items': cart.get_items(), 'item_count': cart.get_total_qty(), 'categorylist': getCategoryList()})
+        return render(request, 'store/login.html', {'cart_items': cart.get_items(), 'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
 
 
 def products(request, id):
@@ -238,7 +243,8 @@ def search(request):
         searchresult = request.GET.get('searchtext')
         return_url = "?searchtext={0}".format(searchresult)
         if searchresult:
-            products = Product.objects.filter(name__icontains=searchresult)
+            products = Product.objects.filter(
+                Q(name__icontains=searchresult) | Q(description__icontains=searchresult))
             return render(request, 'store/searchpage.html', {'return_url': return_url, 'products': products, 'item_count': cart.get_total_qty(), 'total_amount': cart.get_total_amount(), 'categorylist': getCategoryList()})
         else:
             print("No matching item found")
