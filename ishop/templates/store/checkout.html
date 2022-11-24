@@ -93,16 +93,16 @@
                     <hr>
                     <h5>Shipping Information:</h5>
                     <div class="form-field">
-                        <input required class="form-control" type="email" name="emailCustomerInfo" placeholder="Email">
+                        <input required class="form-control" type="email" name="emailCustomerInfo" placeholder="Email" value="{% if user %}{{user.email}}{% endif %}">
                     </div>
                     <div class="form-field">
                         <input required class="form-control" type="text" name="zipcodeShippingInfo" placeholder="Zip code">
                     </div>
                     <div class="form-field">
-                        <input required class="form-control" type="text" name="firstnameCustomerInfo" placeholder="Firstname">
+                        <input required class="form-control" type="text" name="firstnameCustomerInfo" placeholder="Firstname" value="{% if user %}{{user.first_name}}{% endif %}">
                     </div>
                     <div class="form-field">
-                        <input required class="form-control" type="text" name="lastnameCustomerInfo" placeholder="Lastname">
+                        <input required class="form-control" type="text" name="lastnameCustomerInfo" placeholder="Lastname" value="{% if user %}{{user.last_name}}{% endif %}">
                     </div>
                     <div class="form-field">
                         <input required class="form-control" type="text" name="streetShippingInfo" placeholder="Street">
